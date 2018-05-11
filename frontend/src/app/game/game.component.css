@@ -1,0 +1,26 @@
+#question {
+    margin-top: 50px;
+}
+#answersbox {
+    margin-left: 10%;
+    width: 80%;
+    height: 450px;
+    display: block;  
+}
+#answer {
+    width: 45%;
+    height: 45%;
+    float: left;
+    margin-left:3%;
+    margin-top: 3%;
+}
+
+#count {
+    float: left;
+    margin-left: 10%;
+}
+
+button {
+    height: 100%;
+    width: 100%;
+}
