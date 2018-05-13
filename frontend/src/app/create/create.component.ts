@@ -8,6 +8,7 @@ import {NgForm} from '@angular/forms';
 })
 export class CreateComponent implements OnInit {
   @Input() quizname = 'Hier steht der Name des Quiz';
+  @Input() question = '';
   @Input() answer1 = '';
   @Input() answer2 = '';
   @Input() answer3 = '';
@@ -55,8 +56,20 @@ export class CreateComponent implements OnInit {
     }
   }
 
-  nextQuestion() {
+  clear() {
+   this.question = '';
+   this.answer1 = '';
+   this.answer2 = '';
+   this.answer3 = '';
+   this.answer4 = '';
+   this.correct1 = false;
+   this.correct2 = false;
+   this.correct3 = false;
+   this.correct4 = false;
+  }
 
+  nextQuestion() {
+    this.clear();
   }
 
   ngOnInit() {

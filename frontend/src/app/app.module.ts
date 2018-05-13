@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { GameComponent } from './game/game.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { CreateComponent } from './create/create.component';
+import { ChooseComponent } from './choose/choose.component';
 
 
 
@@ -21,7 +22,8 @@ import { CreateComponent } from './create/create.component';
     HeaderComponent,
     LoginComponent,
     GameComponent,
-    CreateComponent
+    CreateComponent,
+    ChooseComponent
   ],
   imports: [
     BrowserModule,

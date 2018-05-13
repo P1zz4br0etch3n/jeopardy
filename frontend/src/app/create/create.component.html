@@ -7,36 +7,36 @@
     </div>
     <div id="question">
         <mat-form-field class="answer">
-            <input matInput placeholder="Frage 1">
+            <input matInput [(ngModel)]="question" placeholder="Frage 1">
         </mat-form-field>
     </div>
     <form id="answersbox">
         <div class="answerdiv">
             <mat-form-field class="answer">
-                <input matInput placeholder="Antwort 1">
+                <input matInput [(ngModel)]="answer1" placeholder="Antwort 1" name="eins">
             </mat-form-field>
             <mat-slide-toggle [checked]="correct1" (change)="onChange($event)">Correct?</mat-slide-toggle>
         </div> 
         <div class="answerdiv">
             <mat-form-field class="answer">
-                <input matInput placeholder="Antwort 2">
+                <input matInput [(ngModel)]="answer2" placeholder="Antwort 2" name="zwei">
             </mat-form-field>
             <mat-slide-toggle [checked]="correct2" (change)="onChange2($event)">Correct?</mat-slide-toggle>
         </div>
         <div class="answerdiv">
             <mat-form-field class="answer">
-                <input matInput placeholder="Antwort 3">
+                <input matInput [(ngModel)]="answer3" placeholder="Antwort 3" name="drei">
             </mat-form-field>
             <mat-slide-toggle [checked]="correct3" (change)="onChange3($event)">Correct?</mat-slide-toggle>
         </div>
         <div class="answerdiv">
             <mat-form-field class="answer">
-                <input matInput placeholder="Antwort 4">
+                <input matInput [(ngModel)]="answer4" placeholder="Antwort 4" name="vier">
             </mat-form-field>
             <mat-slide-toggle [checked]="correct4" (change)="onChange4($event)">Correct?</mat-slide-toggle>
         </div>
         <button  mat-raised-button routerLink="/choose" color="primary">Erstellen</button>
         <button  mat-raised-button routerLink="/login" color="primary">Vorherige Frage</button>    
-        <button  mat-raised-button (click)=this.logger() color="primary">Nächste Frage</button>     
+        <button  mat-raised-button (click)=this.nextQuestion() color="primary">Nächste Frage</button>     
     </form>
 </div>
