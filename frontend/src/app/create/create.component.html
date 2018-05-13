@@ -1,7 +1,8 @@
 <div>
     <div id="quizname">
         <mat-form-field class="answer">
-            <input matInput placeholder="Name">
+            <ng-content></ng-content>
+            <input  matInput [(ngModel)]="quizname" placeholder="Name" >
         </mat-form-field>
     </div>
     <div id="question">
@@ -14,28 +15,28 @@
             <mat-form-field class="answer">
                 <input matInput placeholder="Antwort 1">
             </mat-form-field>
-            <mat-slide-toggle>Correct?</mat-slide-toggle>
+            <mat-slide-toggle [checked]="correct1" (change)="onChange($event)">Correct?</mat-slide-toggle>
         </div> 
         <div class="answerdiv">
             <mat-form-field class="answer">
                 <input matInput placeholder="Antwort 2">
             </mat-form-field>
-            <mat-slide-toggle>Correct?</mat-slide-toggle>
+            <mat-slide-toggle [checked]="correct2" (change)="onChange2($event)">Correct?</mat-slide-toggle>
         </div>
         <div class="answerdiv">
             <mat-form-field class="answer">
                 <input matInput placeholder="Antwort 3">
             </mat-form-field>
-            <mat-slide-toggle>Correct?</mat-slide-toggle>
+            <mat-slide-toggle [checked]="correct3" (change)="onChange3($event)">Correct?</mat-slide-toggle>
         </div>
         <div class="answerdiv">
             <mat-form-field class="answer">
                 <input matInput placeholder="Antwort 4">
             </mat-form-field>
-            <mat-slide-toggle>Correct?</mat-slide-toggle>
+            <mat-slide-toggle [checked]="correct4" (change)="onChange4($event)">Correct?</mat-slide-toggle>
         </div>
-        <button  mat-raised-button color="primary">Erstellen</button>
-        <button  mat-raised-button color="primary">Vorherige Frage</button>    
-        <button  mat-raised-button color="primary">Nächste Frage</button>     
+        <button  mat-raised-button routerLink="/choose" color="primary">Erstellen</button>
+        <button  mat-raised-button routerLink="/login" color="primary">Vorherige Frage</button>    
+        <button  mat-raised-button (click)=this.logger() color="primary">Nächste Frage</button>     
     </form>
 </div>

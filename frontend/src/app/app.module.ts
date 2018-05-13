@@ -4,6 +4,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -28,11 +29,11 @@ import { CreateComponent } from './create/create.component';
     MatInputModule,
     MatButtonModule,
     AppRoutingModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    FormsModule
   ],
   providers: [],
-  bootstrap: [
-    AppComponent
-  ]
+  exports: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
