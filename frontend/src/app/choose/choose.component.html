@@ -1,7 +1,7 @@
 <div>
     <div id="quizbox">
         <div *ngFor="let quiz of quizzes" id="quiz">
-            <button  mat-raised-button color="primary">{{quiz.name}}</button>
+            <button  mat-raised-button routerLink="/game" (click)="onSelect(quiz)" color="primary">{{quiz.name}}</button>
         </div>
     </div>
 </div>

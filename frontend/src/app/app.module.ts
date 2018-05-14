@@ -13,6 +13,7 @@ import { GameComponent } from './game/game.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { CreateComponent } from './create/create.component';
 import { ChooseComponent } from './choose/choose.component';
+import { QuizService } from './quiz.service';
 
 
 
@@ -34,7 +35,7 @@ import { ChooseComponent } from './choose/choose.component';
     MatSlideToggleModule,
     FormsModule
   ],
-  providers: [],
+  providers: [QuizService],
   exports: [AppComponent],
   bootstrap: [AppComponent]
 })

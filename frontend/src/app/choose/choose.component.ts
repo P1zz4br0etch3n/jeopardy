@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Quiz } from '../quiz';
+import { QuizService } from '../quiz.service';
 
 @Component({
   selector: 'app-choose',
@@ -7,13 +8,20 @@ import { Quiz } from '../quiz';
   styleUrls: ['./choose.component.css']
 })
 export class ChooseComponent implements OnInit {
-    testQuiz: Quiz = {
-        id: 0,
-        name: 'Testquiz',
-        questions: []
-     };
-    quizzes: Quiz[] = [this.testQuiz, this.testQuiz, this.testQuiz, this.testQuiz, this.testQuiz, this.testQuiz];
-     ngOnInit() {
+  constructor(private quizService: QuizService) {}
+    quizzes: Quiz[];
 
+     getQuizzes() {
+       this.quizService.getQuizzes().subscribe(quizzes => this.quizzes = quizzes);
+     }
+
+     onSelect(quiz: Quiz) {
+       this.quizService.setSelectedQuiz(quiz);
+
+       console.log(quiz.name);
+     }
+
+     ngOnInit() {
+        this.getQuizzes();
      }
 }

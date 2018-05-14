@@ -1,13 +1,13 @@
 <div>
     <div id="question">
-        <h1>{{question}}</h1>
+        <h1>{{selectedQuiz.questions[questionCount].name}}</h1>
     </div>
     <div id="answersbox">
-        <div *ngFor="let answer of answers" id="answer">
-            <button  mat-raised-button color="primary">{{answer}}</button>
+        <div *ngFor="let answer of selectedQuiz.questions[questionCount].answer" id="answer">
+            <button  mat-raised-button (click)="nextQuestion()" color="primary">{{answer}}</button>
         </div>
     </div>
     <div id="count">
-        <h2>Frage 1/n</h2>
+        <h2>Frage {{questionCount+1}}/{{selectedQuiz.questions.length}}</h2>
     </div>
 </div>

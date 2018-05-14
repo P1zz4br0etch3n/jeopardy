@@ -1,7 +1,8 @@
 #quizbox {
+    margin-top: 50px;
     margin-left: 10%;
     width: 80%;
-    height: 450px;
+    height: 250px;
     display: block;  
 }
 #quiz {
