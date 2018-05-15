@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {NgForm} from '@angular/forms';
+import { Quiz } from '../quiz';
+import { Question } from '../question';
 
 @Component({
   selector: 'app-create',
@@ -7,6 +9,14 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
+
+  questionCount = 0;
+  createdQuiz: Quiz = {
+    id: 0,
+    name: '',
+    questions: []
+  };
+
   @Input() quizname = 'Hier steht der Name des Quiz';
   @Input() question = '';
   @Input() answer1 = '';
@@ -69,7 +79,32 @@ export class CreateComponent implements OnInit {
   }
 
   nextQuestion() {
+    let tmpQuestion: Question = {
+      id: this.questionCount,
+      name: this.question,
+      answer: [this.answer1, this.answer2, this.answer3, this.answer4],
+      correct: []
+    };
+    if (this.correct1) {
+      tmpQuestion.correct.push(0);
+    }
+    if (this.correct2) {
+      tmpQuestion.correct.push(1);
+    }
+    if (this.correct3) {
+      tmpQuestion.correct.push(2);
+    }
+    if (this.correct4) {
+      tmpQuestion.correct.push(3);
+    }
+    this.createdQuiz.questions.push(tmpQuestion);
     this.clear();
+    tmpQuestion = null;
+    this.questionCount++;
+  }
+
+  createQuiz() {
+    this.createdQuiz.name = this.quizname;
   }
 
   ngOnInit() {
