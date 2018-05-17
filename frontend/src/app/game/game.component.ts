@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { QuizService } from '../quiz.service';
 import { Quiz } from '../quiz';
+import { Question } from '../question';
 
 @Component({
   selector: 'app-game',
@@ -8,6 +9,7 @@ import { Quiz } from '../quiz';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit, OnChanges {
+
   selectedQuiz: Quiz;
   questionCount = 0;
   constructor(private quizService: QuizService) {}
@@ -20,9 +22,10 @@ export class GameComponent implements OnInit, OnChanges {
   }
 
   nextQuestion() {
-    if (this.questionCount + 1 < this.selectedQuiz.questions.length) {
+    if (this.questionCount + 1 < this.selectedQuiz.questions1.length) {
     this.questionCount++;
     }
   }
+
 }
 

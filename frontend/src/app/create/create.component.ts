@@ -14,7 +14,11 @@ export class CreateComponent implements OnInit {
   createdQuiz: Quiz = {
     id: 0,
     name: '',
-    questions: []
+    questions1: [],
+    questions2: [],
+    questions3: [],
+    questions4: [],
+    questions5: []
   };
 
   @Input() quizname = 'Hier steht der Name des Quiz';
@@ -80,24 +84,11 @@ export class CreateComponent implements OnInit {
 
   nextQuestion() {
     let tmpQuestion: Question = {
-      id: this.questionCount,
+      points: this.questionCount,
       name: this.question,
-      answer: [this.answer1, this.answer2, this.answer3, this.answer4],
-      correct: []
+      answer: this.answer1,
     };
-    if (this.correct1) {
-      tmpQuestion.correct.push(0);
-    }
-    if (this.correct2) {
-      tmpQuestion.correct.push(1);
-    }
-    if (this.correct3) {
-      tmpQuestion.correct.push(2);
-    }
-    if (this.correct4) {
-      tmpQuestion.correct.push(3);
-    }
-    this.createdQuiz.questions.push(tmpQuestion);
+    this.createdQuiz.questions1.push(tmpQuestion);
     this.clear();
     tmpQuestion = null;
     this.questionCount++;

@@ -1,26 +1,47 @@
-#question {
-    margin-top: 100px;
-}
-#answersbox {
-    margin-left: 10%;
-    width: 80%;
-    height: 450px;
-    display: block;  
-}
-#answer {
-    width: 45%;
-    height: 45%;
-    float: left;
-    margin-left:3%;
-    margin-top: 3%;
-}
-
-#count {
-    float: left;
-    margin-left: 10%;
-}
 
 button {
     height: 100%;
     width: 100%;
+}
+#main {
+    margin-top: 64px;
+    height: 100%;
+}
+ul {
+    width: 20%;
+    float: left;
+    padding-left:0;
+    margin: 0;
+    list-style-type: none;
+    height: 100%;
+}
+#first {
+    background-color: black;
+}
+#second {
+    background-color: blue;
+}
+#third {
+ background-color: yellow;
+ color: black;
+}
+#fourth {
+ background-color: green;
+}
+#fifth {
+ background-color: orangered;
+}
+div {
+    color: white;
+}
+
+li {
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    display: -webkit-flex;
+    align-items: center;
+    box-pack: center;
+    justify-content: center;
+    
 }
