@@ -17,6 +17,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { CreateComponent } from './create/create.component';
 import { ChooseComponent } from './choose/choose.component';
 import { QuizService } from './quiz.service';
+import { ShowComponent } from './show/show.component';
 
 
 
@@ -27,7 +28,8 @@ import { QuizService } from './quiz.service';
     LoginComponent,
     GameComponent,
     CreateComponent,
-    ChooseComponent
+    ChooseComponent,
+    ShowComponent
   ],
   imports: [
     BrowserModule,

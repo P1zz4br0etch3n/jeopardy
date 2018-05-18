@@ -1,22 +1,22 @@
 <div id="main">
     <ul id="first">
         <li>{{selectedQuiz.categories[0]}}</li>
-        <li *ngFor="let question of selectedQuiz.questions1" (click)="onSelect(question)">{{question.points}}    </li>
+        <li *ngFor="let question of selectedQuiz.questions1" routerLink="/show" (click)="onSelect(question)">{{question.points}}    </li>
     </ul>
     <ul id="second">
         <li>{{selectedQuiz.categories[1]}}</li>
-        <li *ngFor="let question of selectedQuiz.questions2" (click)="onSelect(question)">{{question.points}}    </li>
+        <li *ngFor="let question of selectedQuiz.questions2" routerLink="/show" (click)="onSelect(question)">{{question.points}}    </li>
     </ul>
     <ul id="third">
         <li>{{selectedQuiz.categories[2]}}</li>
-        <li *ngFor="let question of selectedQuiz.questions3" (click)="onSelect(question)">{{question.points}}    </li>
+        <li *ngFor="let question of selectedQuiz.questions3" routerLink="/show" (click)="onSelect(question)">{{question.points}}    </li>
     </ul>
     <ul id="fourth">
         <li>{{selectedQuiz.categories[3]}}</li>
-        <li *ngFor="let question of selectedQuiz.questions4" (click)="onSelect(question)">{{question.points}}    </li>
+        <li *ngFor="let question of selectedQuiz.questions4" routerLink="/show" (click)="onSelect(question)">{{question.points}}    </li>
     </ul>
     <ul id="fifth">
         <li>{{selectedQuiz.categories[4]}}</li>
-        <li *ngFor="let question of selectedQuiz.questions5" (click)="onSelect(question)">{{question.points}}    </li>
+        <li *ngFor="let question of selectedQuiz.questions5" routerLink="/show" (click)="onSelect(question)">{{question.points}}    </li>
     </ul> 
 </div>
