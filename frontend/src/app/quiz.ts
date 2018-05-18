@@ -2,6 +2,7 @@ import {Question} from './question';
 export class Quiz {
     id: number;
     name: string;
+    categories: string[];
     questions1: Question[];
     questions2: Question[];
     questions3: Question[];

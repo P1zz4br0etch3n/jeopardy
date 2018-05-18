@@ -27,5 +27,11 @@ export class GameComponent implements OnInit, OnChanges {
     }
   }
 
+  onSelect(question: Question) {
+    this.quizService.setSelectedQuestion(question);
+
+    console.log(question.name);
+  }
+
 }
 

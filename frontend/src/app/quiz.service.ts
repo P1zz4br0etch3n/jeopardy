@@ -9,6 +9,7 @@ import { Question } from './question';
 @Injectable()
 export class QuizService {
   selectedQuiz: Quiz;
+  selectedQuestion: Question;
   question: Question = {
     points: 100,
     name: 'Ist dies ein Test?',
@@ -37,6 +38,7 @@ export class QuizService {
   testQuiz: Quiz = {
     id: 0,
     name: 'Testquiz',
+    categories: ['Kat1', 'Kat2', 'Kat3', 'Kat4', 'Kat5'],
     questions1: [this.question, this.question1, this.question2, this.question3, this.question4],
     questions2: [this.question, this.question1, this.question2, this.question3, this.question4],
     questions3: [this.question, this.question1, this.question2, this.question3, this.question4],
@@ -46,6 +48,7 @@ export class QuizService {
   testQuiz1: Quiz = {
     id: 0,
     name: 'Testquiz1',
+    categories: ['Kat1', 'Kat2', 'Kat3', 'Kat4', 'Kat5'],
     questions1: [this.question, this.question1],
     questions2: [this.question, this.question1],
     questions3: [this.question, this.question1],
@@ -55,6 +58,7 @@ export class QuizService {
   testQuiz2: Quiz = {
     id: 0,
     name: 'Testquiz2',
+    categories: ['Kat1', 'Kat2', 'Kat3', 'Kat4', 'Kat5'],
     questions1: [this.question, this.question1],
     questions2: [this.question, this.question1],
     questions3: [this.question, this.question1],
@@ -64,6 +68,7 @@ export class QuizService {
   testQuiz3: Quiz = {
     id: 0,
     name: 'Testquiz3',
+    categories: ['Kat1', 'Kat2', 'Kat3', 'Kat4', 'Kat5'],
     questions1: [this.question, this.question1],
     questions2: [this.question, this.question1],
     questions3: [this.question, this.question1],
@@ -84,5 +89,14 @@ export class QuizService {
   getSelectedQuiz(): Quiz {
     return this.selectedQuiz;
   }
+
+  setSelectedQuestion(selQuest: Question) {
+    this.selectedQuestion = selQuest;
+  }
+
+  getSelectedQuestion(): Question {
+    return this.selectedQuestion;
+  }
+
 
 }

@@ -14,6 +14,7 @@ export class CreateComponent implements OnInit {
   createdQuiz: Quiz = {
     id: 0,
     name: '',
+    categories: ['Kat1', 'Kat2', 'Kat3', 'Kat4', 'Kat5'],
     questions1: [],
     questions2: [],
     questions3: [],

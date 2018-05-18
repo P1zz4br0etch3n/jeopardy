@@ -8,12 +8,13 @@ button {
     height: 100%;
 }
 ul {
-    width: 20%;
+    width: 19.98%;
     float: left;
     padding-left:0;
     margin: 0;
     list-style-type: none;
     height: 100%;
+    
 }
 #first {
     background-color: black;
@@ -34,14 +35,13 @@ ul {
 div {
     color: white;
 }
-
 li {
     width: 100%;
-    height: 20%;
+    height: 16.4%;
     text-align: center;
     display: -webkit-flex;
     align-items: center;
     box-pack: center;
     justify-content: center;
-    
+    border: 1px solid white;
 }
