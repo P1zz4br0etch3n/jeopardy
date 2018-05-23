@@ -9,6 +9,7 @@ import { Question } from '../question';
 })
 export class ShowComponent implements OnInit, OnChanges {
 
+  show = false;
   selectedQuestion: Question;
   questionCount = 0;
   constructor(private quizService: QuizService) {}
@@ -18,5 +19,9 @@ export class ShowComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.selectedQuestion = this.quizService.getSelectedQuestion();
+  }
+
+  showAnswer() {
+    this.show = true;
   }
 }

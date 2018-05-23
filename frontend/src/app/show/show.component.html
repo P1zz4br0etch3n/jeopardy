@@ -1,14 +1,14 @@
 <div id="main">
     <div id="comp">
         <div id="answer">
-            <h1>{{selectedQuestion.answer}}</h1>
+            <h1 *ngIf="show">{{selectedQuestion.answer}}</h1>
         </div>
         <div id="question">
             <h1>{{selectedQuestion.name}}</h1>
         </div>
         <div id="btn">
-            <button  mat-raised-button color="primary">Zeige Antwort</button>
-            <button  mat-raised-button color="primary">Weiter</button>
+            <button *ngIf="show === false" mat-raised-button color="primary" (click)="showAnswer()">Zeige Antwort</button>
+            <button *ngIf="show" mat-raised-button color="primary" routerLink="/game">Weiter</button>
         </div>
     </div>
 </div>

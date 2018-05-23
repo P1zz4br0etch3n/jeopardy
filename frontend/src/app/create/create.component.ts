@@ -10,7 +10,7 @@ import { Question } from '../question';
 })
 export class CreateComponent implements OnInit {
 
-  questionCount = 0;
+  categoryCount = 0;
   createdQuiz: Quiz = {
     id: 0,
     name: '',
@@ -23,83 +23,103 @@ export class CreateComponent implements OnInit {
   };
 
   @Input() quizname = 'Hier steht der Name des Quiz';
-  @Input() question = '';
+  @Input() category = '';
   @Input() answer1 = '';
   @Input() answer2 = '';
   @Input() answer3 = '';
   @Input() answer4 = '';
-  @Input() correct1 = false;
-  @Input() correct2 = false;
-  @Input() correct3 = false;
-  @Input() correct4 = false;
+  @Input() answer5 = '';
+  @Input() question1 = '';
+  @Input() question2 = '';
+  @Input() question3 = '';
+  @Input() question4 = '';
+  @Input() question5 = '';
 
   constructor() {}
 
   logger() {
-    console.log(this.correct1);
+    console.log('test');
   }
 
-  onChange(e) {
-    if (e.checked === true) {
-      this.correct1 = true;
-    } else {
-      this.correct1 = false;
-    }
-  }
-
-  onChange2(e) {
-    if (e.checked === true) {
-      this.correct2 = true;
-    } else {
-      this.correct2 = false;
-    }
-  }
-
-  onChange3(e) {
-    if (e.checked === true) {
-      this.correct3 = true;
-    } else {
-      this.correct3 = false;
-    }
-  }
-
-  onChange4(e) {
-    if (e.checked === true) {
-      this.correct4 = true;
-    } else {
-      this.correct4 = false;
-    }
-  }
 
   clear() {
-   this.question = '';
+   this.category = '';
    this.answer1 = '';
    this.answer2 = '';
    this.answer3 = '';
    this.answer4 = '';
-   this.correct1 = false;
-   this.correct2 = false;
-   this.correct3 = false;
-   this.correct4 = false;
+   this.answer5 = '';
+   this.question1 = '';
+   this.question2 = '';
+   this.question3 = '';
+   this.question4 = '';
+   this.question5 = '';
   }
 
   nextQuestion() {
-    let tmpQuestion: Question = {
-      points: this.questionCount,
-      name: this.question,
+    let questions: Question[] = [];
+    questions.push({
+      points: 100,
+      name: this.question1,
       answer: this.answer1,
-    };
-    this.createdQuiz.questions1.push(tmpQuestion);
+    });
+    questions.push({
+      points: 200,
+      name: this.question2,
+      answer: this.answer2,
+    });
+    questions.push({
+      points: 300,
+      name: this.question3,
+      answer: this.answer3,
+    });
+    questions.push({
+      points: 400,
+      name: this.question4,
+      answer: this.answer4,
+    });
+    questions.push({
+      points: 500,
+      name: this.question5,
+      answer: this.answer5,
+    });
+    switch (this.categoryCount) {
+      case 0:
+        this.createdQuiz.questions1 = [];
+        this.createdQuiz.questions1.concat(questions);
+        break;
+      case 1:
+        this.createdQuiz.questions2 = [];
+        this.createdQuiz.questions2.concat(questions);
+        break;
+      case 2:
+        this.createdQuiz.questions3 = [];
+        this.createdQuiz.questions3.concat(questions);
+        break;
+      case 3:
+        this.createdQuiz.questions4 = [];
+        this.createdQuiz.questions4.concat(questions);
+        break;
+      case 4:
+        this.createdQuiz.questions5 = [];
+        this.createdQuiz.questions5.concat(questions);
+        break;
+
+    }
+    questions = [];
     this.clear();
-    tmpQuestion = null;
-    this.questionCount++;
+    this.categoryCount++;
   }
 
   createQuiz() {
     this.createdQuiz.name = this.quizname;
+
   }
 
   ngOnInit() {
 
+  }
+  previousQuestion() {
+    this.categoryCount--;
   }
 }

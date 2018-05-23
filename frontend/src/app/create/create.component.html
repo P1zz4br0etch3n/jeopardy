@@ -5,38 +5,66 @@
             <input  matInput [(ngModel)]="quizname" placeholder="Name" >
         </mat-form-field>
     </div>
-    <div id="question">
-        <mat-form-field class="answer">
-            <input matInput [(ngModel)]="question" placeholder="Frage 1">
-        </mat-form-field>
-    </div>
     <form id="answersbox">
+        <div id="question">
+            <mat-form-field class="answer">
+                <input matInput [(ngModel)]="category" placeholder="Kategorie 1" name="cat">
+            </mat-form-field>
+        </div>
+        <div id="question">
+            <mat-form-field class="answer">
+                <input matInput [(ngModel)]="question1" placeholder="Frage 1" name="quest1">
+            </mat-form-field>
+        </div>
         <div class="answerdiv">
             <mat-form-field class="answer">
                 <input matInput [(ngModel)]="answer1" placeholder="Antwort 1" name="eins">
             </mat-form-field>
-            <mat-slide-toggle [checked]="correct1" (change)="onChange($event)">Correct?</mat-slide-toggle>
         </div> 
+        <div id="question">
+            <mat-form-field class="answer">
+                <input matInput [(ngModel)]="question2" placeholder="Frage 2" name="quest2">
+            </mat-form-field>
+        </div>
         <div class="answerdiv">
             <mat-form-field class="answer">
                 <input matInput [(ngModel)]="answer2" placeholder="Antwort 2" name="zwei">
             </mat-form-field>
-            <mat-slide-toggle [checked]="correct2" (change)="onChange2($event)">Correct?</mat-slide-toggle>
+        </div>
+        <div id="question">
+            <mat-form-field class="answer">
+                <input matInput [(ngModel)]="question3" placeholder="Frage 3" name="quest3">
+            </mat-form-field>
         </div>
         <div class="answerdiv">
             <mat-form-field class="answer">
                 <input matInput [(ngModel)]="answer3" placeholder="Antwort 3" name="drei">
             </mat-form-field>
-            <mat-slide-toggle [checked]="correct3" (change)="onChange3($event)">Correct?</mat-slide-toggle>
+        </div>
+        <div id="question">
+            <mat-form-field class="answer">
+                <input matInput [(ngModel)]="question4" placeholder="Frage 4" name="quest4">
+            </mat-form-field>
         </div>
         <div class="answerdiv">
             <mat-form-field class="answer">
                 <input matInput [(ngModel)]="answer4" placeholder="Antwort 4" name="vier">
             </mat-form-field>
-            <mat-slide-toggle [checked]="correct4" (change)="onChange4($event)">Correct?</mat-slide-toggle>
         </div>
-        <button  mat-raised-button routerLink="/choose" color="primary">Erstellen</button>
-        <button  mat-raised-button routerLink="/login" color="primary">Vorherige Frage</button>    
-        <button  mat-raised-button (click)=this.nextQuestion() color="primary">Nächste Frage</button>     
+        <div id="question">
+            <mat-form-field class="answer">
+                <input matInput [(ngModel)]="question5" placeholder="Frage 5" name="quest5">
+            </mat-form-field>
+        </div>
+        <div class="answerdiv">
+            <mat-form-field class="answer">
+                <input matInput [(ngModel)]="answer5" placeholder="Antwort 5" name="fuenf">
+            </mat-form-field>
+        </div> 
     </form>
+    <div class="answerdiv"> 
+        <button id="btnFirst" mat-raised-button routerLink="/choose" (click)="createQuiz()" color="primary">Erstellen</button>
+        <button *ngIf="categoryCount != 0" mat-raised-button (click)="this.previousQuestion()" color="primary">Vorherige Kategorie</button>    
+        <button *ngIf="categoryCount < 5" mat-raised-button (click)=this.nextQuestion() color="primary">Nächste Kategorie</button> 
+    </div>   
 </div>
