@@ -121,5 +121,24 @@ export class CreateComponent implements OnInit {
   }
   previousQuestion() {
     this.categoryCount--;
+    let tmpQuestions: Question[];
+    switch (this.categoryCount) {
+      case 0: tmpQuestions = this.createdQuiz.questions1; break;
+      case 1: tmpQuestions = this.createdQuiz.questions2; break;
+      case 2: tmpQuestions = this.createdQuiz.questions3; break;
+      case 3: tmpQuestions = this.createdQuiz.questions4; break;
+      case 4: tmpQuestions = this.createdQuiz.questions5; break;
+    }
+    this.question1 = tmpQuestions[0].name;
+    this.answer1 = tmpQuestions[0].answer;
+    this.question2 = tmpQuestions[1].name;
+    this.answer2 = tmpQuestions[1].answer;
+    this.question3 = tmpQuestions[2].name;
+    this.answer3 = tmpQuestions[2].answer;
+    this.question4 = tmpQuestions[3].name;
+    this.answer4 = tmpQuestions[3].answer;
+    this.question5 = tmpQuestions[4].name;
+    this.answer5 = tmpQuestions[4].answer;
+    this.category = this.createdQuiz.categories[this.categoryCount];
   }
 }
