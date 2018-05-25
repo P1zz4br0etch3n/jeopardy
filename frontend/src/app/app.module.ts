@@ -18,6 +18,7 @@ import { CreateComponent } from './create/create.component';
 import { ChooseComponent } from './choose/choose.component';
 import { QuizService } from './quiz.service';
 import { ShowComponent } from './show/show.component';
+import { RegisterComponent } from './register/register.component';
 
 
 
@@ -29,7 +30,8 @@ import { ShowComponent } from './show/show.component';
     GameComponent,
     CreateComponent,
     ChooseComponent,
-    ShowComponent
+    ShowComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

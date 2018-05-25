@@ -1,0 +1,21 @@
+<div id="centerbox">
+    <div id="username">
+        <mat-form-field>
+             <input matInput placeholder="Username" [(ngModel)]="user">
+        </mat-form-field>
+    </div>
+    <div id=password>
+        <mat-form-field>
+            <input matInput type="password" placeholder="Passwort" [(ngModel)]="pwd">
+        </mat-form-field>
+    </div>
+    <div id=password>
+        <mat-form-field>
+            <input matInput type="password" placeholder="Passwort wiederholen" [(ngModel)]="pwdWdh">
+        </mat-form-field>
+        <mat-error *ngIf="!equalPwd">
+            Passwort stimmt nicht überein
+        </mat-error>
+    </div>
+    <button mat-raised-button  routerLinkActive="active" color="primary" (click)="clickRegister()">Registrieren</button>
+</div>

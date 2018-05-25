@@ -5,6 +5,7 @@ import { GameComponent } from './game/game.component';
 import { CreateComponent } from './create/create.component';
 import { ChooseComponent } from './choose/choose.component';
 import { ShowComponent } from './show/show.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'game', component: GameComponent },
   { path: 'create', component: CreateComponent },
   { path: 'choose', component: ChooseComponent },
-  { path: 'show', component: ShowComponent }
+  { path: 'show', component: ShowComponent },
+  { path: 'register', component: RegisterComponent }
 ];
 
 @NgModule({
