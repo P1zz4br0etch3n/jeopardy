@@ -1,23 +1,53 @@
 package org.dhbw.mosbach.ai.javae.jeopardy.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Game {
-    private String id;
+
+    @Id
+    @GeneratedValue
+    private long id;
 
     private String name;
 
     @OneToOne
     private User creator;
 
-    @Id
-    @GeneratedValue
-    public String getId() {
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "GAME_ID")
+    private List<Category> categories;
+
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }
