@@ -28,3 +28,9 @@ h1 {
 button {
     margin-top: 10px;
 }
+.right {
+    margin-left: 60%;
+}
+#user {
+    min-width: 0px;
+}

@@ -7,6 +7,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {FormsModule} from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatIconModule} from '@angular/material/icon';
+import {HttpClientModule} from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
@@ -42,7 +44,9 @@ import { RegisterComponent } from './register/register.component';
     MatSlideToggleModule,
     FormsModule,
     MatToolbarModule,
-    MatGridListModule
+    MatGridListModule,
+    MatIconModule,
+    HttpClientModule
   ],
   providers: [QuizService],
   exports: [AppComponent],

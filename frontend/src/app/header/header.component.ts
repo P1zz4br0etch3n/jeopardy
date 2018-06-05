@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import {MatIconRegistry} from '@angular/material';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  title = 'My first Angular app!';
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'usercircle',
+      sanitizer.bypassSecurityTrustResourceUrl('../assets/usericon.svg'));
+  }
+  username = 'admin';
 }
