@@ -4,6 +4,9 @@
              <input matInput placeholder="Username" [(ngModel)]="user">
         </mat-form-field>
     </div>
+    <mat-error *ngIf="emptyInput">
+        Eingaben sind nicht vollständig!
+    </mat-error>
     <div id=password>
         <mat-form-field>
             <input matInput type="password" placeholder="Passwort" [(ngModel)]="pwd">
@@ -17,5 +20,6 @@
             Passwort stimmt nicht überein
         </mat-error>
     </div>
+
     <button mat-raised-button  routerLinkActive="active" color="primary" (click)="clickRegister()">Registrieren</button>
 </div>

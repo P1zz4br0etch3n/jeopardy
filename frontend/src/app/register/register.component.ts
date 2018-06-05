@@ -12,13 +12,19 @@ export class RegisterComponent {
   @Input() pwd: string;
   @Input() pwdWdh: string;
   equalPwd = true;
+  emptyInput = false;
 
   clickRegister() {
-    if (this.pwd === this.pwdWdh) {
-      this.equalPwd = true;
-      this.router.navigate(['/login']);
+    console.log(this.user);
+    if (this.user === (undefined || '') || this.pwd === (undefined || '') || this.pwdWdh === (undefined || '')) {
+      this.emptyInput = true;
     } else {
-      this.equalPwd = false;
+      if (this.pwd === this.pwdWdh) {
+        this.equalPwd = true;
+        this.router.navigate(['/login']);
+      } else {
+        this.equalPwd = false;
+      }
     }
   }
 
