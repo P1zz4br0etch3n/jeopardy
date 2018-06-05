@@ -16,7 +16,8 @@ export class RegisterComponent {
 
   clickRegister() {
     console.log(this.user);
-    if (this.user === (undefined || '') || this.pwd === (undefined || '') || this.pwdWdh === (undefined || '')) {
+    if (this.user === undefined || this.pwd === undefined  || this.pwdWdh === undefined ||
+      this.user === '' || this.pwd === ''  || this.pwdWdh === '') {
       this.emptyInput = true;
     } else {
       if (this.pwd === this.pwdWdh) {
