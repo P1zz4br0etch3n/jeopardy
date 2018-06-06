@@ -67,5 +67,4 @@ public class PersistenceBean {
         TypedQuery<Game> query =  em.createQuery("SELECT g FROM Game g WHERE g.creator = :uid", Game.class);
         return query.setParameter("uid", uid).getResultList();
     }
-
 }
