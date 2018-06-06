@@ -9,6 +9,9 @@
             <mat-form-field>
                 <input matInput type="password" placeholder="Password" [(ngModel)]="pwd">
             </mat-form-field>
+            <mat-error *ngIf="wrongCredentials">
+                Falsche Kombination von Username und Passwort.
+            </mat-error>
         </div>
         <div>
             <button mat-raised-button routerLinkActive="active" (click)="login()" color="primary">Login</button>

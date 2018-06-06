@@ -1,13 +1,21 @@
+
 import { Injectable } from '@angular/core';
 import { Quiz } from './quiz';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { Question } from './question';
+import { HttpClient } from '@angular/common/http';
 
 
 
 @Injectable()
 export class QuizService {
+  constructor(private http: HttpClient) { }
+
+  quiz: Quiz;
+  configUrl = 'assets/mockquizzes.json';
+
+
   selectedQuiz: Quiz;
   selectedQuestion: Question;
   question: Question = {
@@ -76,7 +84,7 @@ export class QuizService {
     questions5: [this.question, this.question1]
   };
   quizzes: Quiz[] = [this.testQuiz, this.testQuiz1, this.testQuiz2, this.testQuiz3, this.testQuiz3, this.testQuiz3];
-  constructor() { }
+
 
   getQuizzes(): Observable<Quiz[]> {
     return of(this.quizzes);
@@ -98,5 +106,8 @@ export class QuizService {
     return this.selectedQuestion;
   }
 
+  getQuizFromServer() {
+   return this.http.get(this.configUrl);
+  }
 
 }

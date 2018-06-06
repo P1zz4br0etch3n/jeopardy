@@ -25,7 +25,6 @@ import { ShowComponent } from './show/show.component';
 import { RegisterComponent } from './register/register.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
