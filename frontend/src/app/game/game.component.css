@@ -5,7 +5,7 @@ button {
 }
 #main {
     margin-top: 64px;
-    height: 100%;
+    height: calc(100% - 64px);
 }
 ul {
     width: 19.98%;

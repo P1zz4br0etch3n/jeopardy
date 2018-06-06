@@ -29,7 +29,7 @@ button {
     margin-top: 10px;
 }
 .right {
-    margin-left: 60%;
+    margin-left: calc(100% - 400px);
 }
 #user {
     min-width: 0px;

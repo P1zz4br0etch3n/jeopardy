@@ -1,5 +1,5 @@
 #answersbox {
-    width: 100%;
+    width: calc(100% - 64px);
     float: left;
     min-width: 150px;
 }
