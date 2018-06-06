@@ -1,3 +1,5 @@
+import { AuthGuard } from './authentication/auth.guard';
+import { AuthService } from './authentication/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -48,7 +50,7 @@ import { RegisterComponent } from './register/register.component';
     MatIconModule,
     HttpClientModule
   ],
-  providers: [QuizService],
+  providers: [QuizService, AuthService, AuthGuard],
   exports: [AppComponent],
   bootstrap: [AppComponent]
 })

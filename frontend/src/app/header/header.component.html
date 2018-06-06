@@ -6,12 +6,12 @@
       <span>
         <button  mat-button routerLink="/create">Quiz erstellen</button>  
       </span>
-      <span class="right">
+      <span *ngIf="this.authService.loggedin" class="right">
         <mat-icon svgIcon="usercircle"></mat-icon>
         <button id="user" mat-button>{{username}}</button>  
       </span>
-      <span>
-        <button  mat-button routerLink="/login">Logout</button>  
+      <span *ngIf="this.authService.loggedin">
+        <button  mat-button (click)="logout()">Logout</button>  
       </span>
 </mat-toolbar-row>
 </mat-toolbar>

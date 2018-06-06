@@ -1,3 +1,4 @@
+import { AuthGuard } from './authentication/auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
@@ -10,10 +11,10 @@ import { RegisterComponent } from './register/register.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'game', component: GameComponent },
-  { path: 'create', component: CreateComponent },
-  { path: 'choose', component: ChooseComponent },
-  { path: 'show', component: ShowComponent },
+  { path: 'game', component: GameComponent, canActivate: [AuthGuard] },
+  { path: 'create', component: CreateComponent, canActivate: [AuthGuard] },
+  { path: 'choose', component: ChooseComponent, canActivate: [AuthGuard] },
+  { path: 'show', component: ShowComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent }
 ];
 
