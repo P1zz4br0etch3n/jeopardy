@@ -34,3 +34,9 @@ button {
 #user {
     min-width: 0px;
 }
+#flex {
+    display: flex;
+}
+mat-icon {
+    margin-top: 15px;
+}
