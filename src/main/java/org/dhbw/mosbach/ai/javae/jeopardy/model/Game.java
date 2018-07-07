@@ -13,10 +13,11 @@ public class Game {
     private String name;
 
     @OneToOne
+    @JoinColumn(name = "fk_user")
     private User creator;
 
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "GAME_ID")
+    @OneToMany
+    @JoinColumn(name = "fk_game")
     private List<Category> categories;
 
     public long getId() {
