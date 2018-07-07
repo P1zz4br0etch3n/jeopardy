@@ -5,7 +5,6 @@
 	
 	<persistence-unit name="jeopardyPU" transaction-type="JTA">
 		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
-		<class>org.dhbw.mosbach.ai.javae.jeopardy.model.Game</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<!--  <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->

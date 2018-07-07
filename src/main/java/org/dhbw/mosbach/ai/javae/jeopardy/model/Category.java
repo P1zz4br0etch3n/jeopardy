@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Game {
+public class Category {
 
     @Id
     @GeneratedValue
@@ -12,13 +12,11 @@ public class Game {
 
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "fk_user")
-    private User creator;
-
     @OneToMany
-    @JoinColumn(name = "fk_game")
-    private List<Category> categories;
+    @JoinColumn(name = "fk_ category")
+    private List<Question> questions;
+
+    private ColorEnum color;
 
     public long getId() {
         return id;
@@ -36,19 +34,19 @@ public class Game {
         this.name = name;
     }
 
-    public User getCreator() {
-        return creator;
+    public List<Question> getQuestions() {
+        return questions;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public ColorEnum getColor() {
+        return color;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setColor(ColorEnum color) {
+        this.color = color;
     }
 }
