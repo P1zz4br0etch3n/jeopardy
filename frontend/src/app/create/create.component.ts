@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { Quiz } from '../quiz';
 import { Question } from '../question';
 
@@ -14,12 +14,8 @@ export class CreateComponent implements OnInit {
   createdQuiz: Quiz = {
     id: 0,
     name: '',
-    categories: ['Kat1', 'Kat2', 'Kat3', 'Kat4', 'Kat5'],
-    questions1: [],
-    questions2: [],
-    questions3: [],
-    questions4: [],
-    questions5: []
+    categories: [null, null, null, null, null],
+    creator: 0
   };
 
   @Input() quizname = 'Hier steht der Name des Quiz';
@@ -35,7 +31,7 @@ export class CreateComponent implements OnInit {
   @Input() question4 = '';
   @Input() question5 = '';
 
-  constructor() {}
+  constructor() { }
 
   logger() {
     console.log('test');
@@ -43,69 +39,58 @@ export class CreateComponent implements OnInit {
 
 
   clear() {
-   this.category = '';
-   this.answer1 = '';
-   this.answer2 = '';
-   this.answer3 = '';
-   this.answer4 = '';
-   this.answer5 = '';
-   this.question1 = '';
-   this.question2 = '';
-   this.question3 = '';
-   this.question4 = '';
-   this.question5 = '';
+    this.category = '';
+    this.answer1 = '';
+    this.answer2 = '';
+    this.answer3 = '';
+    this.answer4 = '';
+    this.answer5 = '';
+    this.question1 = '';
+    this.question2 = '';
+    this.question3 = '';
+    this.question4 = '';
+    this.question5 = '';
   }
 
   nextQuestion() {
+    this.createdQuiz.categories[this.categoryCount] = {
+      id: this.categoryCount,
+      name: this.category,
+      questions: []
+    };
     let questions: Question[] = [];
     questions.push({
+      id: 0,
       points: 100,
       name: this.question1,
       answer: this.answer1,
     });
     questions.push({
+      id: 1,
       points: 200,
       name: this.question2,
       answer: this.answer2,
     });
     questions.push({
+      id: 2,
       points: 300,
       name: this.question3,
       answer: this.answer3,
     });
     questions.push({
+      id: 3,
       points: 400,
       name: this.question4,
       answer: this.answer4,
     });
     questions.push({
+      id: 4,
       points: 500,
       name: this.question5,
       answer: this.answer5,
     });
-    switch (this.categoryCount) {
-      case 0:
-        this.createdQuiz.questions1 = [];
-        this.createdQuiz.questions1.concat(questions);
-        break;
-      case 1:
-        this.createdQuiz.questions2 = [];
-        this.createdQuiz.questions2.concat(questions);
-        break;
-      case 2:
-        this.createdQuiz.questions3 = [];
-        this.createdQuiz.questions3.concat(questions);
-        break;
-      case 3:
-        this.createdQuiz.questions4 = [];
-        this.createdQuiz.questions4.concat(questions);
-        break;
-      case 4:
-        this.createdQuiz.questions5 = [];
-        this.createdQuiz.questions5.concat(questions);
-        break;
-
-    }
+    this.createdQuiz.categories[this.categoryCount].questions = null;
+        this.createdQuiz.categories[this.categoryCount].questions.concat(questions);
     questions = [];
     this.clear();
     this.categoryCount++;
@@ -122,13 +107,7 @@ export class CreateComponent implements OnInit {
   previousQuestion() {
     this.categoryCount--;
     let tmpQuestions: Question[];
-    switch (this.categoryCount) {
-      case 0: tmpQuestions = this.createdQuiz.questions1; break;
-      case 1: tmpQuestions = this.createdQuiz.questions2; break;
-      case 2: tmpQuestions = this.createdQuiz.questions3; break;
-      case 3: tmpQuestions = this.createdQuiz.questions4; break;
-      case 4: tmpQuestions = this.createdQuiz.questions5; break;
-    }
+    tmpQuestions = this.createdQuiz.categories[this.categoryCount].questions;
     this.question1 = tmpQuestions[0].name;
     this.answer1 = tmpQuestions[0].answer;
     this.question2 = tmpQuestions[1].name;
@@ -139,6 +118,6 @@ export class CreateComponent implements OnInit {
     this.answer4 = tmpQuestions[3].answer;
     this.question5 = tmpQuestions[4].name;
     this.answer5 = tmpQuestions[4].answer;
-    this.category = this.createdQuiz.categories[this.categoryCount];
+    this.category = this.createdQuiz.categories[this.categoryCount].name;
   }
 }

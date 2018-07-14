@@ -22,7 +22,7 @@ export class GameComponent implements OnInit, OnChanges {
   }
 
   nextQuestion() {
-    if (this.questionCount + 1 < this.selectedQuiz.questions1.length) {
+    if (this.questionCount + 1 < this.selectedQuiz.categories[0].questions.length) {
     this.questionCount++;
     }
   }
