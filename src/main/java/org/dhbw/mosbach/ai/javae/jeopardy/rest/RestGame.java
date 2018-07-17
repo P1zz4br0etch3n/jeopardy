@@ -4,6 +4,7 @@ import org.dhbw.mosbach.ai.javae.jeopardy.bean.PersistenceBean;
 import org.dhbw.mosbach.ai.javae.jeopardy.model.Game;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -22,9 +23,9 @@ public class RestGame {
     }
 
     @GET
-    @Path("/{name}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Game get(@PathParam("name") String id) {
+    public Game get(@PathParam("id") String id) {
         return pb.getGame(Long.parseLong(id));
     }
 

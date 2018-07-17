@@ -16,7 +16,7 @@ public class Game {
     @JoinColumn(name = "fk_user")
     private User creator;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_game")
     private List<Category> categories;
 

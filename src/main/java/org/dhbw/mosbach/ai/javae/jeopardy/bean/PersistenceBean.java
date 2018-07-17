@@ -1,8 +1,6 @@
 package org.dhbw.mosbach.ai.javae.jeopardy.bean;
 
-import org.dhbw.mosbach.ai.javae.jeopardy.model.Game;
-import org.dhbw.mosbach.ai.javae.jeopardy.model.HashHelper;
-import org.dhbw.mosbach.ai.javae.jeopardy.model.User;
+import org.dhbw.mosbach.ai.javae.jeopardy.model.*;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -10,9 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -43,13 +38,14 @@ public class PersistenceBean {
 
     @Transactional
     public void deleteUser(User user) {
-        em.remove(user);
+        em.remove(em.contains(user) ? user : em.merge(user));
     }
 
 
     /*
         Game Methods
      */
+    @Transactional
     public List<Game> getAllGames() {
         return em.createQuery("SELECT g FROM Game g", Game.class).getResultList();
     }
@@ -60,12 +56,18 @@ public class PersistenceBean {
 
     @Transactional
     public void saveGame(Game game) {
+        for (Category cat: game.getCategories()) {
+            for (Question q: cat.getQuestions()) {
+                em.persist(q);
+            }
+            em.persist(cat);
+        }
         em.persist(game);
     }
 
     @Transactional
     public void deleteGame(Game game) {
-        em.remove(game);
+        em.remove(em.contains(game) ? game : em.merge(game));
     }
 
     public List<Game> getGamesOfCreator(String uid) {

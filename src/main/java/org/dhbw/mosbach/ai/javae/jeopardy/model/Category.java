@@ -12,11 +12,9 @@ public class Category {
 
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "fk_ category")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_category")
     private List<Question> questions;
-
-    private ColorEnum color;
 
     public long getId() {
         return id;
@@ -40,13 +38,5 @@ public class Category {
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
-    }
-
-    public ColorEnum getColor() {
-        return color;
-    }
-
-    public void setColor(ColorEnum color) {
-        this.color = color;
     }
 }
