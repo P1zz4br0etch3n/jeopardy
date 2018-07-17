@@ -9,6 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -74,6 +77,20 @@ public class PersistenceBean {
      */
     private SecureRandom rnd = new SecureRandom();
     private HashMap<String, User> TokenToUser = new HashMap<>();
+
+    public String hash(String s){
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte[] hash = new byte[0];
+        if (digest != null) {
+            hash = digest.digest(s.getBytes(StandardCharsets.UTF_8));
+        }
+        return new String(hash);
+    }
 
     public User authenticateUserByUsernameAndPassword(String username, String password) {
         List<User> allUsers = getAllUsers();
