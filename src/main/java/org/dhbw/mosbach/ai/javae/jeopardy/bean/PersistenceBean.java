@@ -1,6 +1,7 @@
 package org.dhbw.mosbach.ai.javae.jeopardy.bean;
 
 import org.dhbw.mosbach.ai.javae.jeopardy.model.Game;
+import org.dhbw.mosbach.ai.javae.jeopardy.model.HashHelper;
 import org.dhbw.mosbach.ai.javae.jeopardy.model.User;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -78,24 +79,10 @@ public class PersistenceBean {
     private SecureRandom rnd = new SecureRandom();
     private HashMap<String, User> TokenToUser = new HashMap<>();
 
-    public String hash(String s){
-        MessageDigest digest = null;
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        byte[] hash = new byte[0];
-        if (digest != null) {
-            hash = digest.digest(s.getBytes(StandardCharsets.UTF_8));
-        }
-        return new String(hash);
-    }
-
     public User authenticateUserByUsernameAndPassword(String username, String password) {
         List<User> allUsers = getAllUsers();
         for (User user : allUsers) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+            if (user.getUsername().equals(username) && user.getPasswordHash().equals(HashHelper.Hash(password))) {
                 return user;
             }
         }

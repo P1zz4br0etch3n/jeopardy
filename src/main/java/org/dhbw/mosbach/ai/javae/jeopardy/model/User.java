@@ -12,7 +12,7 @@ public class User {
     private long id;
 
     private String username;
-    private String password;
+    private String passwordHash;
     private String email;
 
     public User() {
@@ -34,12 +34,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String password) {
+        this.passwordHash = HashHelper.Hash(password);
     }
 
     public String getEmail() {
