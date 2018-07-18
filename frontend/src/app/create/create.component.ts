@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Quiz } from '../quiz';
 import { Question } from '../question';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-create',
@@ -31,7 +32,7 @@ export class CreateComponent implements OnInit {
   @Input() question4 = '';
   @Input() question5 = '';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   logger() {
     console.log('test');
@@ -89,8 +90,9 @@ export class CreateComponent implements OnInit {
       name: this.question5,
       answer: this.answer5,
     });
-    this.createdQuiz.categories[this.categoryCount].questions = null;
-        this.createdQuiz.categories[this.categoryCount].questions.concat(questions);
+    this.createdQuiz.categories[this.categoryCount].questions = [];
+    this.createdQuiz.categories[this.categoryCount].questions = this.createdQuiz.categories[this.categoryCount].questions.concat(questions);
+    console.log(this.createdQuiz.categories[this.categoryCount].questions);
     questions = [];
     this.clear();
     this.categoryCount++;
@@ -98,7 +100,7 @@ export class CreateComponent implements OnInit {
 
   createQuiz() {
     this.createdQuiz.name = this.quizname;
-
+    this.sendQuiz(this.createdQuiz);
   }
 
   ngOnInit() {
@@ -119,5 +121,16 @@ export class CreateComponent implements OnInit {
     this.question5 = tmpQuestions[4].name;
     this.answer5 = tmpQuestions[4].answer;
     this.category = this.createdQuiz.categories[this.categoryCount].name;
+  }
+
+  sendQuiz(quiz: Quiz) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    this.http.post('jeopardy/rest/games', JSON.stringify(quiz), httpOptions).subscribe({ error: e => console.error(e) });
+
   }
 }

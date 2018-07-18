@@ -13,7 +13,7 @@ export class QuizService {
   constructor(private http: HttpClient) { }
 
   quiz: Quiz;
-  configUrl = 'assets/mockquizzesnew.json';
+  configUrl = 'jeopardy/rest/games';
 
 
   selectedQuiz: Quiz;
