@@ -37,6 +37,11 @@ public class PersistenceBean {
     }
 
     @Transactional
+    public void updateUser(User user) {
+        em.persist(em.merge(user));
+    }
+
+    @Transactional
     public void deleteUser(User user) {
         em.remove(em.contains(user) ? user : em.merge(user));
     }
@@ -66,13 +71,19 @@ public class PersistenceBean {
     }
 
     @Transactional
+    public void updateGame(Game game) {
+        em.persist(em.merge(game));
+    }
+
+    @Transactional
     public void deleteGame(Game game) {
         em.remove(em.contains(game) ? game : em.merge(game));
     }
 
-    public List<Game> getGamesOfCreator(String uid) {
-        TypedQuery<Game> query = em.createQuery("SELECT g FROM Game g WHERE g.creator = :uid", Game.class);
-        return query.setParameter("uid", uid).getResultList();
+    public List<Game> getGamesOfCreator(long uid) {
+        User user = em.find(User.class, uid);
+        TypedQuery<Game> query = em.createQuery("SELECT g FROM Game g WHERE g.creator = :user", Game.class);
+        return query.setParameter("user", user).getResultList();
     }
 
     /*

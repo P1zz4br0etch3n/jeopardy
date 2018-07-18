@@ -44,14 +44,14 @@ public class RestUser {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(User user) {
-        pb.saveUser(user);
+        pb.updateUser(user);
     }
 
     @GET
     @Path("/{uid}/games")
     @Produces(MediaType.APPLICATION_JSON)
     public Game[] getGamesOfUser(@PathParam("uid") String uid) {
-        final List<Game> games = pb.getGamesOfCreator(uid);
+        final List<Game> games = pb.getGamesOfCreator(Long.parseLong(uid));
         return games.toArray(new Game[0]);
     }
 }
