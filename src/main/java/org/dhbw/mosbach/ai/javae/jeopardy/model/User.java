@@ -1,5 +1,7 @@
 package org.dhbw.mosbach.ai.javae.jeopardy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,8 +14,9 @@ public class User {
     private long id;
 
     private String username;
+
+    @JsonIgnore
     private String passwordHash;
-    private String email;
 
     public User() {
     }
@@ -38,15 +41,7 @@ public class User {
         return passwordHash;
     }
 
-    public void setPasswordHash(String password) {
+    public void setPassword(String password) {
         this.passwordHash = HashHelper.Hash(password);
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

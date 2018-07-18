@@ -37,6 +37,11 @@ public class PersistenceBean {
     }
 
     @Transactional
+    public void updateUser(User user) {
+        em.persist(em.merge(user));
+    }
+
+    @Transactional
     public void deleteUser(User user) {
         em.remove(em.contains(user) ? user : em.merge(user));
     }
@@ -66,13 +71,19 @@ public class PersistenceBean {
     }
 
     @Transactional
+    public void updateGame(Game game) {
+        em.persist(em.merge(game));
+    }
+
+    @Transactional
     public void deleteGame(Game game) {
         em.remove(em.contains(game) ? game : em.merge(game));
     }
 
-    public List<Game> getGamesOfCreator(String uid) {
-        TypedQuery<Game> query = em.createQuery("SELECT g FROM Game g WHERE g.creator = :uid", Game.class);
-        return query.setParameter("uid", uid).getResultList();
+    public List<Game> getGamesOfCreator(long uid) {
+        User user = em.find(User.class, uid);
+        TypedQuery<Game> query = em.createQuery("SELECT g FROM Game g WHERE g.creator = :user", Game.class);
+        return query.setParameter("user", user).getResultList();
     }
 
     /*
@@ -81,14 +92,14 @@ public class PersistenceBean {
     private SecureRandom rnd = new SecureRandom();
     private HashMap<String, User> TokenToUser = new HashMap<>();
 
-    public User authenticateUserByUsernameAndPassword(String username, String password) {
+    public Boolean authenticateUserByUsernameAndPassword(String username, String password) {
         List<User> allUsers = getAllUsers();
         for (User user : allUsers) {
             if (user.getUsername().equals(username) && user.getPasswordHash().equals(HashHelper.Hash(password))) {
-                return user;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public User authenticateUserByAuthToken(String authToken) {
@@ -98,18 +109,24 @@ public class PersistenceBean {
         return null;
     }
 
-    public String generateUserAuthToken(User user) {
-        byte authTokenBytes[] = new byte[32];
-        rnd.nextBytes(authTokenBytes);
-        SetAuthTokenOfUser(user, Arrays.toString(authTokenBytes));
-        return Arrays.toString(authTokenBytes);
+    public String generateUserAuthToken(String username) {
+        List<User> allUsers = getAllUsers();
+        for (User user : allUsers) {
+            if (user.getUsername().equals(username)){
+                byte authTokenBytes[] = new byte[32];
+                rnd.nextBytes(authTokenBytes);
+                SetAuthTokenOfUser(user, Arrays.toString(authTokenBytes));
+                return Arrays.toString(authTokenBytes);
+            }
+        }
+        return "";
     }
 
     private void SetAuthTokenOfUser(User user, String authToken) {
         if (TokenToUser.containsKey(authToken) || TokenToUser.containsValue(user)) {
             System.out.println("User already registered.");
             InvalidateAuthToken(authToken);
-            authToken = generateUserAuthToken(user);
+            authToken = generateUserAuthToken(user.getUsername());
             System.out.println("New registration generated.");
         }
         TokenToUser.put(authToken, user);
@@ -117,7 +134,7 @@ public class PersistenceBean {
 
     private void InvalidateAuthToken(String authToken) {
         if (!TokenToUser.containsKey(authToken)) {
-            System.out.println("Invalidating not existing user.");
+            System.out.println("Invalidating not existing token.");
             return;
         } else {
             TokenToUser.remove(authToken);
