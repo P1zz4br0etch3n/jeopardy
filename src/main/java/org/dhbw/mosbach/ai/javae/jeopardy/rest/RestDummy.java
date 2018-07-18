@@ -15,29 +15,30 @@ public class RestDummy {
 
     @GET
     public void makeDummyData() {
-        try {
-            User dummyuser = new User();
-            dummyuser.setId(1);
-            dummyuser.setUsername("DummyUser");
-            dummyuser.setPassword("geheim");
-            //dummyuser.setEmail("dummy@email.tld");
-            pb.saveUser(dummyuser);
 
-            User dummyuserAlt = new User();
-            dummyuserAlt.setId(2);
-            dummyuserAlt.setUsername("DummyUserAlt");
-            dummyuserAlt.setPassword("geheim");
-            //dummyuserAlt.setEmail("dummyAlt@email.tld");
-            pb.saveUser(dummyuserAlt);
+        User dummyuser = new User();
+        dummyuser.setId(1);
+        dummyuser.setUsername("DummyUser");
+        dummyuser.setPassword("geheim");
+        //dummyuser.setEmail("dummy@email.tld");
+        pb.saveUser(dummyuser);
 
-            Game dummygame1 = genGame(10, dummyuser);
-            Game dummygame2 = genGame(100, dummyuser);
-            Game dummygame3 = genGame(1000, dummyuserAlt);
+        User dummyuserAlt = new User();
+        dummyuserAlt.setId(2);
+        dummyuserAlt.setUsername("DummyUserAlt");
+        dummyuserAlt.setPassword("geheim");
+        //dummyuserAlt.setEmail("dummyAlt@email.tld");
+        pb.saveUser(dummyuserAlt);
 
-            pb.saveGame(dummygame1);
-            pb.saveGame(dummygame2);
-            pb.saveGame(dummygame3);
+        Game dummygame1 = genGame(10, dummyuser);
+        Game dummygame2 = genGame(100, dummyuser);
+        Game dummygame3 = genGame(1000, dummyuserAlt);
 
+        pb.saveGame(dummygame1);
+        pb.saveGame(dummygame2);
+        pb.saveGame(dummygame3);
+
+            /*try{
             Question q1 = new Question();
             q1.setId(10);
             q1.setText("Question1");
@@ -220,7 +221,7 @@ public class RestDummy {
             dummygame.setCategories(new ArrayList<Category>(){{add(c1);add(c11);add(c12);add(c13);add(c14);}});
             pb.saveGame(dummygame);
         }
-        catch (ScoreNotValidException s) {}
+        catch (ScoreNotValidException s) {}//*/
     }
 
     private Game genGame(int start, User creator){
