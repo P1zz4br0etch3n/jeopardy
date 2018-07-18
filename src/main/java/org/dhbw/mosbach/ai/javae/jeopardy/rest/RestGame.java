@@ -44,6 +44,6 @@ public class RestGame {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Game game) {
-        pb.saveGame(game);
+        pb.updateGame(game);
     }
 }
