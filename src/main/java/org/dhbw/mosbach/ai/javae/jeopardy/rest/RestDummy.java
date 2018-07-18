@@ -50,15 +50,15 @@ public class RestDummy {
             for (int b = 0; b < 5; b++){
                 Question q = new Question();
                 //q.setId(++start);
-                q.setText("Question"+(++start));
+                q.setName("Question"+(++start));
                 q.setAnswer("42");
                 try {
                 switch(b) {
-                    case 0: q.setScore(100);  break;
-                    case 1: q.setScore(300);  break;
-                    case 2: q.setScore(500);  break;
-                    case 3: q.setScore(800);  break;
-                    case 4: q.setScore(1000); break;
+                    case 0: q.setPoints(100);  break;
+                    case 1: q.setPoints(300);  break;
+                    case 2: q.setPoints(500);  break;
+                    case 3: q.setPoints(800);  break;
+                    case 4: q.setPoints(1000); break;
                 }}catch (Exception e){}
 
                 questions.add(q);

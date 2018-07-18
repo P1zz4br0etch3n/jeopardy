@@ -13,9 +13,9 @@ public class Question {
     @GeneratedValue
     private long id;
 
-    private String text;
+    private String name;
     private String answer;
-    private ScoreEnum score;
+    private ScoreEnum points;
 
     public long getId() {
         return id;
@@ -25,12 +25,12 @@ public class Question {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getName() {
+        return name;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setName(String text) {
+        this.name = text;
     }
 
     public String getAnswer() {
@@ -41,21 +41,21 @@ public class Question {
         this.answer = answer;
     }
 
-    public int getScore() {
-        return score.getValue();
+    public int getPoints() {
+        return points.getValue();
     }
 
-    public void setScore(int score) throws ScoreNotValidException {
+    public void setPoints(int score) throws ScoreNotValidException {
         if (score == 100) {
-            this.score = ScoreEnum.EINHUNDERT;
+            this.points = ScoreEnum.EINHUNDERT;
         } else if (score == 300) {
-            this.score = ScoreEnum.DREIHUNDERT;
+            this.points = ScoreEnum.DREIHUNDERT;
         } else if (score == 500) {
-            this.score = ScoreEnum.FUENFHUNDERT;
+            this.points = ScoreEnum.FUENFHUNDERT;
         } else if (score == 800) {
-            this.score = ScoreEnum.ACHTHUNDERT;
+            this.points = ScoreEnum.ACHTHUNDERT;
         } else if (score== 1000) {
-            this.score = ScoreEnum.EINTAUSEND;
+            this.points = ScoreEnum.EINTAUSEND;
         } else {
             throw new ScoreNotValidException();
         }
