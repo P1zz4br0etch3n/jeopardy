@@ -92,10 +92,10 @@ public class PersistenceBean {
     private SecureRandom rnd = new SecureRandom();
     private HashMap<String, User> TokenToUser = new HashMap<>();
 
-    public Boolean authenticateUserByUsernameAndPassword(String username, String password) {
+    public Boolean authenticateUserByUsernameAndPassword(User user) {
         List<User> allUsers = getAllUsers();
-        for (User user : allUsers) {
-            if (user.getUsername().equals(username) && user.getPasswordHash().equals(HashHelper.Hash(password))) {
+        for (User u : allUsers) {
+            if (u.getUsername().equals(user.getUsername()) && u.getPasswordHash().equals(user.getPasswordHash())) {
                 return true;
             }
         }
