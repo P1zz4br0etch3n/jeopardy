@@ -1,0 +1,1 @@
+{"name":"Test Game", "creator": {"id":1}, "categories":[{"name":"category", "questions": [{"text": "What is the question?", "answer":"What is a boomerang that doesn't come back?", "score": 100}]}, {"name": "category2", "questions": []}]}

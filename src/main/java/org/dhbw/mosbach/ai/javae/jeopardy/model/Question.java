@@ -14,7 +14,7 @@ public class Question {
     private long id;
 
     private String text;
-    private String antwort;
+    private String answer;
     private ScoreEnum score;
 
     public long getId() {
@@ -33,12 +33,12 @@ public class Question {
         this.text = text;
     }
 
-    public String getAntwort() {
-        return antwort;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setAntwort(String antwort) {
-        this.antwort = antwort;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public int getScore() {
