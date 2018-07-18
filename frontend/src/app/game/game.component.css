@@ -1,0 +1,47 @@
+
+button {
+    height: 100%;
+    width: 100%;
+}
+#main {
+    margin-top: 64px;
+    height: calc(100% - 64px);
+}
+ul {
+    width: 19.98%;
+    float: left;
+    padding-left:0;
+    margin: 0;
+    list-style-type: none;
+    height: 100%;
+    
+}
+#first {
+    background-color: black;
+}
+#second {
+    background-color: blue;
+}
+#third {
+ background-color: yellow;
+ color: black;
+}
+#fourth {
+ background-color: green;
+}
+#fifth {
+ background-color: orangered;
+}
+div {
+    color: white;
+}
+li {
+    width: 100%;
+    height: 16.4%;
+    text-align: center;
+    display: -webkit-flex;
+    align-items: center;
+    box-pack: center;
+    justify-content: center;
+    border: 1px solid white;
+}
