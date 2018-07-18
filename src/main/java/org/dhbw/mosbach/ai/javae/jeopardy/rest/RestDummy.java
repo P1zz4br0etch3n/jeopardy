@@ -19,15 +19,15 @@ public class RestDummy {
             User dummyuser = new User();
             dummyuser.setId(1);
             dummyuser.setUsername("DummyUser");
-            dummyuser.setPasswordHash("geheim");
-            dummyuser.setEmail("dummy@email.tld");
+            dummyuser.setPassword("geheim");
+            //dummyuser.setEmail("dummy@email.tld");
             pb.saveUser(dummyuser);
 
             User dummyuserAlt = new User();
             dummyuserAlt.setId(2);
             dummyuserAlt.setUsername("DummyUserAlt");
-            dummyuserAlt.setPasswordHash("geheim");
-            dummyuserAlt.setEmail("dummyAlt@email.tld");
+            dummyuserAlt.setPassword("geheim");
+            //dummyuserAlt.setEmail("dummyAlt@email.tld");
             pb.saveUser(dummyuserAlt);
 
             Game dummygame1 = genGame(10, dummyuser);
