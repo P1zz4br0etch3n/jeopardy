@@ -14,7 +14,13 @@ public class RestAuthentication {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void post(String username, String password) {
-        pb.authenticateUserByUsernameAndPassword(username, password);
+    public Response post(String username, String password) {
+        if(pb.authenticateUserByUsernameAndPassword(username, password)) {
+            String authToken = pb.generateUserAuthToken(username);
+            if (authToken.equals(""))
+                return Response.status(Response.Status.FORBIDDEN).build();
+            return Response.ok(authToken).build();
+        }
+        return Response.serverError().build();
     }
 }

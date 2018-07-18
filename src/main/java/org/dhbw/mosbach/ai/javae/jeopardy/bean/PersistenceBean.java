@@ -81,14 +81,14 @@ public class PersistenceBean {
     private SecureRandom rnd = new SecureRandom();
     private HashMap<String, User> TokenToUser = new HashMap<>();
 
-    public User authenticateUserByUsernameAndPassword(String username, String password) {
+    public Boolean authenticateUserByUsernameAndPassword(String username, String password) {
         List<User> allUsers = getAllUsers();
         for (User user : allUsers) {
             if (user.getUsername().equals(username) && user.getPasswordHash().equals(HashHelper.Hash(password))) {
-                return user;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public User authenticateUserByAuthToken(String authToken) {
@@ -98,18 +98,24 @@ public class PersistenceBean {
         return null;
     }
 
-    public String generateUserAuthToken(User user) {
-        byte authTokenBytes[] = new byte[32];
-        rnd.nextBytes(authTokenBytes);
-        SetAuthTokenOfUser(user, Arrays.toString(authTokenBytes));
-        return Arrays.toString(authTokenBytes);
+    public String generateUserAuthToken(String username) {
+        List<User> allUsers = getAllUsers();
+        for (User user : allUsers) {
+            if (user.getUsername().equals(username)){
+                byte authTokenBytes[] = new byte[32];
+                rnd.nextBytes(authTokenBytes);
+                SetAuthTokenOfUser(user, Arrays.toString(authTokenBytes));
+                return Arrays.toString(authTokenBytes);
+            }
+        }
+        return "";
     }
 
     private void SetAuthTokenOfUser(User user, String authToken) {
         if (TokenToUser.containsKey(authToken) || TokenToUser.containsValue(user)) {
             System.out.println("User already registered.");
             InvalidateAuthToken(authToken);
-            authToken = generateUserAuthToken(user);
+            authToken = generateUserAuthToken(user.getUsername());
             System.out.println("New registration generated.");
         }
         TokenToUser.put(authToken, user);
@@ -117,7 +123,7 @@ public class PersistenceBean {
 
     private void InvalidateAuthToken(String authToken) {
         if (!TokenToUser.containsKey(authToken)) {
-            System.out.println("Invalidating not existing user.");
+            System.out.println("Invalidating not existing token.");
             return;
         } else {
             TokenToUser.remove(authToken);
