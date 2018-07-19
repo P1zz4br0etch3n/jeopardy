@@ -4,14 +4,11 @@ import org.dhbw.mosbach.ai.javae.jeopardy.model.*;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.security.SecureRandom;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Named
 @ApplicationScoped
@@ -91,6 +88,7 @@ public class PersistenceBean {
      */
     private SecureRandom rnd = new SecureRandom();
     private HashMap<String, User> TokenToUser = new HashMap<>();
+    private HashMap<String, Date> TokenToDate = new HashMap<>();
 
     public Boolean authenticateUserByUsernameAndPassword(User user) {
         List<User> allUsers = getAllUsers();
@@ -104,9 +102,30 @@ public class PersistenceBean {
 
     public User authenticateUserByAuthToken(String authToken) {
         if (TokenToUser.containsKey(authToken)) {
-            return TokenToUser.get(authToken);
+            if (!HasTokenExpired(authToken)){
+                return TokenToUser.get(authToken);
+            }
         }
         return null;
+    }
+
+    //WARNING: Automatically refreshes the Token if it is not expired.
+    public Boolean HasTokenExpired(String authToken){
+        int expirationSeconds = 30;
+        if (TokenToDate.containsKey(authToken)){
+            long timeDiff = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - TokenToDate.get(authToken).getTime());
+            if(timeDiff > expirationSeconds){
+                return true;
+            }
+            RefreshToken(authToken);
+        }
+        throw new NullPointerException("Token not found.");
+    }
+
+    private void RefreshToken(String authToken){
+        if(TokenToDate.containsKey(authToken)){
+            TokenToDate.get(authToken).setTime(System.currentTimeMillis());
+        }
     }
 
     public String generateUserAuthToken(String username) {
@@ -138,6 +157,7 @@ public class PersistenceBean {
             return;
         } else {
             TokenToUser.remove(authToken);
+            TokenToDate.remove(authToken);
         }
     }
 }
