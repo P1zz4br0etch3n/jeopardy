@@ -118,6 +118,7 @@ public class PersistenceBean {
                 return true;
             }
             RefreshToken(authToken);
+            return false;
         }
         throw new NullPointerException("Token not found.");
     }
