@@ -55,11 +55,11 @@ public class RestDummy {
                 try {
                 switch(b) {
                     case 0: q.setPoints(100);  break;
-                    case 1: q.setPoints(300);  break;
-                    case 2: q.setPoints(500);  break;
-                    case 3: q.setPoints(800);  break;
-                    case 4: q.setPoints(1000); break;
-                }}catch (Exception e){}
+                    case 1: q.setPoints(200);  break;
+                    case 2: q.setPoints(300);  break;
+                    case 3: q.setPoints(400);  break;
+                    case 4: q.setPoints(500); break;
+                }}catch (Exception ignored){}
 
                 questions.add(q);
             }

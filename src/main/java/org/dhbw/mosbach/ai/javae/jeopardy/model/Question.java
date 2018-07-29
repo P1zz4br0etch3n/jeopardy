@@ -46,14 +46,14 @@ public class Question {
     public void setPoints(int score) throws ScoreNotValidException {
         if (score == 100) {
             this.points = ScoreEnum.EINHUNDERT;
+        } else if (score == 200) {
+            this.points = ScoreEnum.ZWEIHUNDERT;
         } else if (score == 300) {
             this.points = ScoreEnum.DREIHUNDERT;
+        } else if (score == 400) {
+            this.points = ScoreEnum.VIERHUNDERT;
         } else if (score == 500) {
             this.points = ScoreEnum.FUENFHUNDERT;
-        } else if (score == 800) {
-            this.points = ScoreEnum.ACHTHUNDERT;
-        } else if (score== 1000) {
-            this.points = ScoreEnum.EINTAUSEND;
         } else {
             throw new ScoreNotValidException();
         }

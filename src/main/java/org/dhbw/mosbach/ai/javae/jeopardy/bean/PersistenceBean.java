@@ -102,7 +102,7 @@ public class PersistenceBean {
 
     public User authenticateUserByAuthToken(String authToken) {
         if (TokenToUser.containsKey(authToken)) {
-            if (!HasTokenExpired(authToken)){
+            if (!hasTokenExpired(authToken)){
                 return TokenToUser.get(authToken);
             }
         }
@@ -110,16 +110,17 @@ public class PersistenceBean {
     }
 
     //WARNING: Automatically refreshes the Token if it is not expired.
-    public Boolean HasTokenExpired(String authToken){
+    private Boolean hasTokenExpired(String authToken) {
         int expirationSeconds = 30;
         if (TokenToDate.containsKey(authToken)){
             long timeDiff = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - TokenToDate.get(authToken).getTime());
-            if(timeDiff > expirationSeconds){
+            if(timeDiff > expirationSeconds) {
                 return true;
             }
             RefreshToken(authToken);
+            return false;
         }
-        throw new NullPointerException("Token not found.");
+        return true;
     }
 
     private void RefreshToken(String authToken){
@@ -149,12 +150,12 @@ public class PersistenceBean {
             System.out.println("New registration generated.");
         }
         TokenToUser.put(authToken, user);
+        TokenToDate.put(authToken, new Date());
     }
 
     private void InvalidateAuthToken(String authToken) {
         if (!TokenToUser.containsKey(authToken)) {
             System.out.println("Invalidating not existing token.");
-            return;
         } else {
             TokenToUser.remove(authToken);
             TokenToDate.remove(authToken);

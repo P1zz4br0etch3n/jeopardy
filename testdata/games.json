@@ -8,9 +8,9 @@
       "name": "category1",
       "questions": [
         {
-          "text": "What is the question?",
+          "name": "What is the question?",
           "answer": "What is a boomerang that doesn't come back?",
-          "score": 100
+          "points": 100
         }
       ]
     },
