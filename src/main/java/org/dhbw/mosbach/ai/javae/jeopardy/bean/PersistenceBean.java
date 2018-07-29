@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 @Named
@@ -87,8 +88,8 @@ public class PersistenceBean {
         Authentication
      */
     private SecureRandom rnd = new SecureRandom();
-    private HashMap<String, User> TokenToUser = new HashMap<>();
-    private HashMap<String, Date> TokenToDate = new HashMap<>();
+    private ConcurrentHashMap<String, User> TokenToUser = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, Date> TokenToDate = new ConcurrentHashMap<>();
 
     public Boolean authenticateUserByUsernameAndPassword(User user) {
         List<User> allUsers = getAllUsers();
