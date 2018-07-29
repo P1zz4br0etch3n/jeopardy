@@ -29,6 +29,11 @@ public class PersistenceBean {
         return em.find(User.class, id);
     }
 
+    public User getUserByUsername(String username) {
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :user", User.class);
+        return query.setParameter("user", username).getSingleResult();
+    }
+
     @Transactional
     public void saveUser(User user) {
         em.persist(user);
@@ -61,9 +66,19 @@ public class PersistenceBean {
     public void saveGame(Game game) {
         for (Category cat: game.getCategories()) {
             for (Question q: cat.getQuestions()) {
+                q.setId(0); // this is only for no further changes in frontend
                 em.persist(q);
             }
+            cat.setId(0); // this is only for no further changes in frontend
             em.persist(cat);
+        }
+        if (game.getCreatorUser() == null) {
+            if (game.getCreator() > 0) {
+                User user = em.find(User.class, game.getCreator());
+                game.setCreatorUser(user);
+            }
+        } else {
+            game.setCreator(game.getCreatorUser().getId());
         }
         em.persist(game);
     }
@@ -80,7 +95,7 @@ public class PersistenceBean {
 
     public List<Game> getGamesOfCreator(long uid) {
         User user = em.find(User.class, uid);
-        TypedQuery<Game> query = em.createQuery("SELECT g FROM Game g WHERE g.creator = :user", Game.class);
+        TypedQuery<Game> query = em.createQuery("SELECT g FROM Game g WHERE g.creatorUser = :user", Game.class);
         return query.setParameter("user", user).getResultList();
     }
 
@@ -91,14 +106,14 @@ public class PersistenceBean {
     private ConcurrentHashMap<String, User> TokenToUser = new ConcurrentHashMap<>();
     private ConcurrentHashMap<String, Date> TokenToDate = new ConcurrentHashMap<>();
 
-    public Boolean authenticateUserByUsernameAndPassword(User user) {
-        List<User> allUsers = getAllUsers();
-        for (User u : allUsers) {
-            if (u.getUsername().equals(user.getUsername()) && u.getPasswordHash().equals(user.getPasswordHash())) {
-                return true;
+    public User authenticateUserByUsernameAndPassword(User user) {
+        try {
+            User u = getUserByUsername(user.getUsername());
+            if (u.getPasswordHash().equals(user.getPasswordHash())) {
+                return u;
             }
-        }
-        return false;
+        } catch (Exception ignored) {}
+        return null;
     }
 
     public User authenticateUserByAuthToken(String authToken) {

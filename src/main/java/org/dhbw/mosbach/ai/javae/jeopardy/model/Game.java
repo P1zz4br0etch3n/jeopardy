@@ -14,7 +14,10 @@ public class Game {
 
     @OneToOne
     @JoinColumn(name = "fk_user")
-    private User creator;
+    private User creatorUser;
+
+    // this is only for frontend to work without further changes
+    private long creator;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_game")
@@ -36,12 +39,12 @@ public class Game {
         this.name = name;
     }
 
-    public User getCreator() {
-        return creator;
+    public User getCreatorUser() {
+        return creatorUser;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setCreatorUser(User creator) {
+        this.creatorUser = creator;
     }
 
     public List<Category> getCategories() {
@@ -50,5 +53,13 @@ public class Game {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public long getCreator() {
+        return creator;
+    }
+
+    public void setCreator(long creator) {
+        this.creator = creator;
     }
 }

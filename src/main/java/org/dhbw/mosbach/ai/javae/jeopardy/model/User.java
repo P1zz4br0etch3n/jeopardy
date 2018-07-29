@@ -11,6 +11,7 @@ public class User {
     @GeneratedValue
     private long id;
 
+    @Column(unique = true)
     private String username;
 
     @JsonIgnore
