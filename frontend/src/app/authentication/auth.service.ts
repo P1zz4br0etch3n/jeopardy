@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 
 
@@ -7,42 +8,62 @@ import { Observable } from 'rxjs/Observable';
 export class AuthService {
 
     loggedin = false;
-    constructor() {}
+    loginData: Login;
+
+    constructor(private http: HttpClient) { }
 
     authenticateUser(username: string, password: string) {
 
-       // call API to authenticate user
+        // call API to authenticate user
 
-       // set the token in localstorage
-       if (username === 'admin' && password === 'admin') {
-        localStorage.setItem('access_token', 'jwt_token');
-       }
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+
+        this.http.post('jeopardy/rest/login', '{"username":"' + username + '", "password":"' + password + '"}',
+            httpOptions).subscribe((data: Login) => this.loginData = data,
+                (err: HttpErrorResponse) => console.log(err));
 
     }
 
     logout() {
 
-      // call API to logout user
+        // call API to logout user
 
-      // remove the localstorage token
-      localStorage.removeItem('access_token');
-      this.loggedin = false;
+        // remove the localstorage token
+        localStorage.removeItem('access_token');
+        this.loggedin = false;
     }
 
 
 
     isAuthenticated() {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
         // get the auth token from localStorage
-        const token = localStorage.getItem('access_token');
-
-        // check if token is set, then...
-        if (token) {
-            this.loggedin = true;
-            return true;
-        }
-
-        return false;
+        this.http.post('/jeopardy/rest/validateToken', '{"authToken":"' + this.loginData.authToken + '"}',
+            httpOptions).subscribe((data: Validator) => {
+                if (data.valid === true) {
+                    this.loggedin = true;
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+                (err: HttpErrorResponse) => console.log(err));
     }
 
 
+}
+interface Login {
+    authToken: string;
+    userId: number;
+}
+interface Validator {
+    valid: Boolean;
 }
