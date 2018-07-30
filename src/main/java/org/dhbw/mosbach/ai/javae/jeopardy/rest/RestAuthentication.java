@@ -10,15 +10,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/login")
+@Path("/")
 public class RestAuthentication {
 
     @Inject
     private PersistenceBean pb;
 
     @POST
+    @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response post(User user) {
+    public Response login(User user) {
         User authenticatedUser = pb.authenticateUserByUsernameAndPassword(user);
         if (authenticatedUser != null) {
             String authToken = pb.generateUserAuthToken(authenticatedUser.getUsername());
@@ -32,5 +33,15 @@ public class RestAuthentication {
             return Response.ok(responseObject, MediaType.APPLICATION_JSON).build();
         }
         return Response.status(Response.Status.UNAUTHORIZED).build();
+    }
+
+    @POST
+    @Path("/validateToken")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response validateToken(AuthTokenWrapper wrapper) {
+        String responseObject = "{" +
+                "\"valid\": \"" + (pb.authenticateUserByAuthToken(wrapper.getAuthToken()) != null) + "\"" +
+                "}";
+        return Response.ok(responseObject, MediaType.APPLICATION_JSON).build();
     }
 }

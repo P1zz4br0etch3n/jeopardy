@@ -127,7 +127,7 @@ public class PersistenceBean {
 
     //WARNING: Automatically refreshes the Token if it is not expired.
     private Boolean hasTokenExpired(String authToken) {
-        int expirationSeconds = 30;
+        int expirationSeconds = 300;
         if (TokenToDate.containsKey(authToken)){
             long timeDiff = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - TokenToDate.get(authToken).getTime());
             if(timeDiff > expirationSeconds) {
