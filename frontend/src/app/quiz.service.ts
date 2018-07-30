@@ -4,7 +4,7 @@ import { Quiz } from './quiz';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { Question } from './question';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 
@@ -14,6 +14,7 @@ export class QuizService {
 
   quiz: Quiz;
   configUrl = 'jeopardy/rest/games';
+  loginUrl = 'jeopardy/rest/login';
 
 
   selectedQuiz: Quiz;
@@ -38,5 +39,7 @@ export class QuizService {
   getQuizFromServer() {
    return this.http.get(this.configUrl);
   }
+
+
 
 }

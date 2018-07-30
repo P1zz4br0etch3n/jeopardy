@@ -44,7 +44,7 @@ export class RegisterComponent {
       })
     };
 
-    this.http.post('/users', userdata, httpOptions).subscribe({ error: e => console.error(e) });
+    this.http.post('/jeopardy/rest/users', userdata, httpOptions).subscribe({ error: e => console.error(e) });
 
   }
 }
