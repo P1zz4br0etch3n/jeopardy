@@ -1,14 +1,56 @@
 <!doctype html>
-<html lang="en" style="height: 91.5%; width: 100%; margin: 0; left: 0; top: 0;">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Quiz</title>
-  <base href="/jeopardy">
+    <meta charset="utf-8">
+    <title>Jeopardy Backend</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<h1 title=".. or Sparta?">This is Jeopardy Backend</h1>
+<p>
+    If you see this page, the server is running...
+</p>
+<p>
+    <button id="btnDummyData">Create Dummy Data</button>
+</p>
+<p>
+    Please start the frontend to use the app. It's in the 'frontend' directory in the project folder. You need to have
+    npm installed. Then just change to the directory and run 'npm install' followed by 'npm run start'. Then
+    the frontend should be available here: <a href="http://localhost:4200">http://localhost:4200</a>
+</p>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="/jeopardy/favicon.ico">
-<link rel="stylesheet" href="/jeopardy/styles.dc135ef983d7ef922a3c.css"></head>
-<body style="height: 100%; width: 100%; margin: 0; left: 0; top: 0; position: absolute;">
-  <app-root style="height: 100%; width: 100%; margin: 0; left: 0; top: 0; position: absolute;"></app-root>
-<script type="text/javascript" src="/jeopardy/runtime.a66f828dca56eeb90e02.js"></script><script type="text/javascript" src="/jeopardy/polyfills.7f9d473f1d5c840b0bca.js"></script><script type="text/javascript" src="/jeopardy/main.e16017a92e93959b3279.js"></script></body>
+<script>
+    $(document).ready(() => {
+        $.ajax({
+            'method': 'GET',
+            'url': '/jeopardy/rest/dummydata',
+        }).done((data) => {
+            if (data === 'true') {
+                let btn = $('#btnDummyData');
+                btn.text('Dummy Data created');
+                btn.attr('disabled', 'disabled');
+            }
+        }).fail((jqXHR, textStatus, errorThrown) => {
+            console.error('GET /jeopardy/rest/dummydata ' + errorThrown)
+        })
+    });
+
+    $('#btnDummyData').click((eventObject) => {
+        $.ajax({
+            'method': 'POST',
+            'url': '/jeopardy/rest/dummydata',
+        }).done(() => {
+            $(eventObject.target).attr('disabled', 'disabled');
+            $(eventObject.target).text('Dummy Data created');
+        }).fail((jqXHR, textStatus, errorThrown) => {
+            if (jqXHR.status === 409) {
+                console.error('dummydata already created')
+            } else {
+                console.error(errorThrown);
+            }
+        })
+    })
+
+</script>
+</body>
 </html>

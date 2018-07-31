@@ -1,37 +1,56 @@
 package org.dhbw.mosbach.ai.javae.jeopardy.rest;
 
+import org.dhbw.mosbach.ai.javae.jeopardy.bean.DummyBean;
 import org.dhbw.mosbach.ai.javae.jeopardy.bean.PersistenceBean;
 import org.dhbw.mosbach.ai.javae.jeopardy.model.*;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 
 @Path("/dummydata")
 public class RestDummy {
     @Inject
     private PersistenceBean pb;
+    @Inject
+    private DummyBean db;
+
+
+    @POST
+    public Response makeDummyData() {
+
+        if (!db.isDummyDataCreated()) {
+            User dummyuser = new User();
+            dummyuser.setUsername("DummyUser");
+            dummyuser.setPassword("geheim");
+            pb.saveUser(dummyuser);
+
+            User dummyuserAlt = new User();
+            dummyuserAlt.setUsername("DummyUserAlt");
+            dummyuserAlt.setPassword("geheim");
+            pb.saveUser(dummyuserAlt);
+
+            Game dummygame1 = genGame(10, dummyuser);
+            Game dummygame2 = genGame(100, dummyuser);
+            Game dummygame3 = genGame(1000, dummyuserAlt);
+
+            pb.saveGame(dummygame1);
+            pb.saveGame(dummygame2);
+            pb.saveGame(dummygame3);
+
+            db.setDummyDataCreated(true);
+
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } else {
+            return Response.status(Response.Status.CONFLICT).type(MediaType.TEXT_PLAIN).build();
+        }
+    }
 
     @GET
-    public void makeDummyData() {
-
-        User dummyuser = new User();
-        dummyuser.setUsername("DummyUser");
-        dummyuser.setPassword("geheim");
-        pb.saveUser(dummyuser);
-
-        User dummyuserAlt = new User();
-        dummyuserAlt.setUsername("DummyUserAlt");
-        dummyuserAlt.setPassword("geheim");
-        pb.saveUser(dummyuserAlt);
-
-        Game dummygame1 = genGame(10, dummyuser);
-        Game dummygame2 = genGame(100, dummyuser);
-        Game dummygame3 = genGame(1000, dummyuserAlt);
-
-        pb.saveGame(dummygame1);
-        pb.saveGame(dummygame2);
-        pb.saveGame(dummygame3);
+    public Response isDummyDataCreated() {
+        return Response.ok(db.isDummyDataCreated(), MediaType.TEXT_PLAIN).build();
     }
 
     private Game genGame(int start, User creator){

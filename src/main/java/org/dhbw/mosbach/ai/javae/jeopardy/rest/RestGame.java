@@ -6,7 +6,6 @@ import org.dhbw.mosbach.ai.javae.jeopardy.model.Game;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/games")
@@ -25,15 +24,8 @@ public class RestGame {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@PathParam("id") String id, @HeaderParam("AuthToken") String authToken) {
-        if (pb.authenticateUserByAuthToken(authToken) != null) {
-            Game game = pb.getGame(Long.parseLong(id));
-            if (game != null) {
-                return Response.ok(game, MediaType.APPLICATION_JSON).build();
-            }
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        return Response.status(Response.Status.UNAUTHORIZED).build();
+    public Game get(@PathParam("id") String id) {
+        return pb.getGame(Long.parseLong(id));
     }
 
     @POST

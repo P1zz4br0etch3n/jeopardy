@@ -1,6 +1,6 @@
 package org.dhbw.mosbach.ai.javae.jeopardy.rest;
 
-import org.dhbw.mosbach.ai.javae.jeopardy.bean.PersistenceBean;
+import org.dhbw.mosbach.ai.javae.jeopardy.bean.AuthenticationBean;
 import org.dhbw.mosbach.ai.javae.jeopardy.model.User;
 
 import javax.inject.Inject;
@@ -14,15 +14,15 @@ import javax.ws.rs.core.Response;
 public class RestAuthentication {
 
     @Inject
-    private PersistenceBean pb;
+    private AuthenticationBean ab;
 
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(User user) {
-        User authenticatedUser = pb.authenticateUserByUsernameAndPassword(user);
+        User authenticatedUser = ab.authenticateUserByUsernameAndPassword(user);
         if (authenticatedUser != null) {
-            String authToken = pb.generateUserAuthToken(authenticatedUser.getUsername());
+            String authToken = ab.generateUserAuthToken(authenticatedUser.getUsername());
             if (authToken.equals("")) {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
@@ -40,7 +40,7 @@ public class RestAuthentication {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response validateToken(AuthTokenWrapper wrapper) {
         String responseObject = "{" +
-                "\"valid\": \"" + (pb.authenticateUserByAuthToken(wrapper.getAuthToken()) != null) + "\"" +
+                "\"valid\": \"" + (ab.authenticateUserByAuthToken(wrapper.getAuthToken()) != null) + "\"" +
                 "}";
         return Response.ok(responseObject, MediaType.APPLICATION_JSON).build();
     }
