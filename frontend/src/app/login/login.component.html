@@ -9,7 +9,7 @@
             <mat-form-field>
                 <input matInput type="password" placeholder="Password" [(ngModel)]="pwd">
             </mat-form-field>
-            <mat-error *ngIf="wrongCredentials">
+            <mat-error *ngIf="this.authService.wrongCredentials">
                 Falsche Kombination von Username und Passwort.
             </mat-error>
         </div>

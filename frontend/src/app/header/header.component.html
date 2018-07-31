@@ -9,7 +9,7 @@
       <span *ngIf="this.authService.loggedin" class="right">
       <div id="flex">
         <mat-icon svgIcon="usercircle"></mat-icon>
-        <button id="user" mat-button>{{username}}</button>  
+        <button id="user" mat-button>{{this.authService.name}}</button>  
       </div>
       </span>
       <span *ngIf="this.authService.loggedin">

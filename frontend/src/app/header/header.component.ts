@@ -10,12 +10,12 @@ import {MatIconRegistry} from '@angular/material';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public authService: AuthService, private router: Router) {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public authService: AuthService, private router: Router, ) {
     iconRegistry.addSvgIcon(
       'usercircle',
       sanitizer.bypassSecurityTrustResourceUrl('../assets/usericon.svg'));
   }
-  username = 'admin';
+
 
   logout() {
     this.authService.logout();

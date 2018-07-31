@@ -13,8 +13,8 @@ export class QuizService {
   constructor(private http: HttpClient) { }
 
   quiz: Quiz;
-  configUrl = 'jeopardy/rest/games';
-  loginUrl = 'jeopardy/rest/login';
+  configUrl = 'https://localhost:8443/jeopardy/rest/games';
+  loginUrl = 'https://localhost:8443/jeopardy/rest/login';
 
 
   selectedQuiz: Quiz;
