@@ -40,7 +40,7 @@ public class RestAuthentication {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response validateToken(AuthTokenWrapper wrapper) {
         String responseObject = "{" +
-                "\"valid\": \"" + (ab.authenticateUserByAuthToken(wrapper.getAuthToken()) != null) + "\"" +
+                "\"valid\": " + (ab.authenticateUserByAuthToken(wrapper.getAuthToken()) != null) +
                 "}";
         return Response.ok(responseObject, MediaType.APPLICATION_JSON).build();
     }
