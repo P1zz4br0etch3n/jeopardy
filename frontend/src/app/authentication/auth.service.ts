@@ -24,7 +24,7 @@ export class AuthService {
         };
 
         this.http.post('https://localhost:8443/jeopardy/rest/login', '{"username":"' + username + '", "password":"' + password + '"}',
-            httpOptions).subscribe((data: Login) => {this.loginData = data; this.router.navigate(['/choose']); },
+            httpOptions).subscribe((data: Login) => {this.loggedin = true; this.loginData = data; this.router.navigate(['/choose']); },
                 (err: HttpErrorResponse) => {console.log(err); this.wrongCredentials = true; } );
 
     }
