@@ -1,5 +1,5 @@
-import { QuizService } from './../quiz.service';
-import { AuthService } from './../authentication/auth.service';
+import { QuizService } from '../quiz.service';
+import { AuthService } from '../authentication/auth.service';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private router: Router, public authService: AuthService, public quitService: QuizService) { }
+  constructor(private router: Router, public authService: AuthService, public quizService: QuizService) { }
 
   @Input() user: string;
   @Input() pwd: string;
@@ -19,6 +19,5 @@ export class LoginComponent {
   login() {
     // in real world app- call auth service to get the token
     this.authService.authenticateUser(this.user, this.pwd);
-
   }
 }
