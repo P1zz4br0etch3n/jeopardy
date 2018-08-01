@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -40,28 +39,27 @@ export class AuthService {
     }
 
 
-
-    isAuthenticated() {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json'
-            })
-        };
-        // get the auth token from localStorage
-        this.http.post('https://localhost:8443/jeopardy/rest/validateToken', '{"authToken":"' + this.loginData.authToken + '"}',
-            httpOptions).subscribe((data: Validator) => {
-                if (data.valid === true) {
-                    this.loggedin = true;
-                    return true;
-                } else {
-                    return false;
-                }
-            },
-                (err: HttpErrorResponse) => console.log(err));
-    }
-
-
+  isAuthenticated(): Boolean {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    // get the auth token from localStorage
+    this.http.post('https://localhost:8443/jeopardy/rest/validateToken', '{"authToken":"' + this.loginData.authToken + '"}',
+      httpOptions).subscribe((data: Validator) => {
+        if (data.valid === false) {
+          this.logout();
+        }
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.logout();
+      });
+    return this.loggedin;
+  }
 }
+
 interface Login {
     authToken: string;
     userId: number;
