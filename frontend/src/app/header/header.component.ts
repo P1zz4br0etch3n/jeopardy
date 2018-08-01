@@ -13,7 +13,7 @@ export class HeaderComponent {
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public authService: AuthService, private router: Router, ) {
     iconRegistry.addSvgIcon(
       'usercircle',
-      sanitizer.bypassSecurityTrustResourceUrl('../assets/usericon.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl('/jeopardy/assets/usericon.svg'));
   }
 
 

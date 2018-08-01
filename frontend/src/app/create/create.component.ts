@@ -130,7 +130,7 @@ export class CreateComponent implements OnInit {
       })
     };
 
-    this.http.post('https://localhost:8443/jeopardy/rest/games',
+    this.http.post('rest/games',
      JSON.stringify(quiz), httpOptions).subscribe({ error: e => console.error(e) });
 
   }

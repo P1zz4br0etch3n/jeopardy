@@ -26,7 +26,7 @@ export class RegisterComponent {
       if (this.pwd === this.pwdWdh) {
         this.equalPwd = true;
         this.sendRegistration(this.user, this.pwd);
-        this.router.navigate(['/jeopardy/rest/login']);
+        this.router.navigate(['/login']);
       } else {
         this.equalPwd = false;
       }
@@ -44,7 +44,7 @@ export class RegisterComponent {
       })
     };
 
-    this.http.post('/jeopardy/rest/users', userdata, httpOptions).subscribe({ error: e => console.error(e) });
+    this.http.post('rest/users', userdata, httpOptions).subscribe({ error: e => console.error(e) });
 
   }
 }

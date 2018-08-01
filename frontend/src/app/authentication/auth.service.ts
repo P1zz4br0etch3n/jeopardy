@@ -1,52 +1,76 @@
-import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
-
+import {Injectable} from '@angular/core';
+import {HttpHeaders, HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 
 @Injectable()
 export class AuthService {
 
-    loggedin = false;
-    loginData: Login;
-    wrongCredentials = false;
-    name = 'test';
-    constructor(private http: HttpClient, private router: Router) { }
+  loggedin = false;
+  loginData: Login;
+  wrongCredentials = false;
+  name = 'test';
 
-    authenticateUser(username: string, password: string) {
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
-        // call API to authenticate user
-        this.name = username;
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json'
-            })
-        };
+  authenticateUser(username: string, password: string) {
 
-        this.http.post('https://localhost:8443/jeopardy/rest/login', '{"username":"' + username + '", "password":"' + password + '"}',
-            httpOptions).subscribe((data: Login) => {this.loggedin = true; this.loginData = data; this.router.navigate(['/choose']); },
-                (err: HttpErrorResponse) => {console.log(err); this.wrongCredentials = true; } );
+    // call API to authenticate user
+    this.name = username;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
 
-    }
+    this.http.post('rest/login', '{"username":"' + username + '", "password":"' + password + '"}',
+      httpOptions).subscribe((data: Login) => {
+        this.loggedin = true;
+        this.loginData = data;
+        localStorage.setItem("loginData", JSON.stringify(data));
+        localStorage.setItem('username', username);
+        this.router.navigate(['/choose']);
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.wrongCredentials = true;
+      });
 
-    logout() {
+  }
 
-        // call API to logout user
+  logout() {
 
-        // remove the localstorage token
-        localStorage.removeItem('access_token');
-        this.loggedin = false;
-    }
+    // call API to logout user
+
+    // remove localStorage session data
+    localStorage.removeItem('loginData');
+    localStorage.removeItem('username');
+    this.loggedin = false;
+    this.router.navigate(['/login']);
+  }
 
 
   isAuthenticated(): Boolean {
+    if (!this.loginData) {
+      // maybe page reload, try to fetch from localStorage
+      this.loginData = JSON.parse(localStorage.getItem("loginData"));
+      if (this.loginData) {
+        // session restored
+        this.loggedin = true;
+        this.name = localStorage.getItem('username');
+      } else {
+        // still no session
+        return false;
+      }
+    }
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
     // get the auth token from localStorage
-    this.http.post('https://localhost:8443/jeopardy/rest/validateToken', '{"authToken":"' + this.loginData.authToken + '"}',
+    this.http.post('rest/validateToken', '{"authToken":"' + this.loginData.authToken + '"}',
       httpOptions).subscribe((data: Validator) => {
         if (data.valid === false) {
           this.logout();
@@ -61,9 +85,10 @@ export class AuthService {
 }
 
 interface Login {
-    authToken: string;
-    userId: number;
+  authToken: string;
+  userId: number;
 }
+
 interface Validator {
-    valid: Boolean;
+  valid: Boolean;
 }
