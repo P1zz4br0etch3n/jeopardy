@@ -2,9 +2,8 @@
     margin-top:64px;
     width: 100%;
     height: calc(100% - 64px);
-    background-image: url(./question.jpg);
-    background-repeat: no-repeat;
-    background-size: 40% 100%;
+    background: url(./question.jpg) no-repeat;
+    background-size: contain;
     background-position-x: 95%;
 }
 #comp {

@@ -28,8 +28,10 @@ h1 {
 button {
     margin-top: 10px;
 }
-.right {
-    margin-left: calc(100% - 400px);
+mat-toolbar-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 #user {
     min-width: 0px;

@@ -1,19 +1,23 @@
-<mat-toolbar id="main" color="primary">  
-    <mat-toolbar-row>
+<mat-toolbar id="main" color="primary">
+  <mat-toolbar-row>
+    <div>
       <span>
-          <button  mat-button routerLink="/choose">Quizmaster</button>  
+          <button mat-button routerLink="/choose">Quizmaster</button>
       </span>
       <span *ngIf="this.authService.loggedin">
-        <button  mat-button routerLink="/create">Quiz erstellen</button>  
+        <button mat-button routerLink="/create">Quiz erstellen</button>
       </span>
-      <span *ngIf="this.authService.loggedin" class="right">
+    </div>
+    <div>
+    <span *ngIf="this.authService.loggedin" class="right">
       <div id="flex">
         <mat-icon svgIcon="usercircle"></mat-icon>
         <button id="user" mat-button>{{this.authService.name}}</button>  
       </div>
       </span>
       <span *ngIf="this.authService.loggedin">
-        <button  mat-button (click)="logout()">Logout</button>  
+        <button mat-button (click)="logout()">Logout</button>
       </span>
-</mat-toolbar-row>
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>
