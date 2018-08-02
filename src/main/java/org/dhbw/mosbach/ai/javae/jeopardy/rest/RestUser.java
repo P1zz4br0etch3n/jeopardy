@@ -11,6 +11,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+/**
+ * User REST Endpoints
+ */
 @Path("/users")
 public class RestUser {
 
@@ -19,6 +22,11 @@ public class RestUser {
     @Inject
     private AuthenticationBean ab;
 
+    /**
+     * Get all users from database
+     * @param authToken user auth token
+     * @return List of users on success or 401 if token is not valid
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(@HeaderParam("X-Auth-Token") String authToken) {
@@ -29,6 +37,12 @@ public class RestUser {
         return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 
+    /**
+     * Get single user by id
+     * @param id user id
+     * @param authToken user auth token
+     * @return User object on success or 404 if no user is found or 401 if token is not valid
+     */
     @GET
     @Path("/{name}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -43,6 +57,11 @@ public class RestUser {
         return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 
+    /**
+     * Register new user.
+     * @param user user object without id
+     * @return 200 on success
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response post(User user) {
@@ -51,6 +70,12 @@ public class RestUser {
         return Response.ok().build();
     }
 
+    /**
+     * delet user
+     * @param user user object containing id
+     * @param authToken user auth token
+     * @return 200 ok on success or 401 if token is not valid
+     */
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     public Response delete(User user, @HeaderParam("X-Auth-Token") String authToken) {
@@ -61,6 +86,12 @@ public class RestUser {
         return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 
+    /**
+     * Update user with new values
+     * @param user user object with new values
+     * @param authToken user auth token
+     * @return 200 on success or 401 if token is not valid
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(User user, @HeaderParam("X-Auth-Token") String authToken) {
@@ -71,6 +102,12 @@ public class RestUser {
         return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 
+    /**
+     * Get all games where the user with uid is creator
+     * @param uid creator user id
+     * @param authToken user auth token
+     * @return List of games on success or 401 if token is not valid
+     */
     @GET
     @Path("/{uid}/games")
     @Produces(MediaType.APPLICATION_JSON)

@@ -10,6 +10,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 
+/**
+ * DummyData REST Endpoints
+ */
 @Path("/dummydata")
 public class RestDummy {
     @Inject
@@ -17,7 +20,11 @@ public class RestDummy {
     @Inject
     private DummyBean db;
 
-
+    /**
+     * Endpoint to generate dummydata for testing
+     * @return 204 no content on success or 409 conflict
+     * if data was already created.
+     */
     @POST
     public Response makeDummyData() {
 
@@ -44,15 +51,25 @@ public class RestDummy {
 
             return Response.status(Response.Status.NO_CONTENT).build();
         } else {
-            return Response.status(Response.Status.CONFLICT).type(MediaType.TEXT_PLAIN).build();
+            return Response.status(Response.Status.CONFLICT).build();
         }
     }
 
+    /**
+     * Endpoint to check if dummydata was created
+     * @return "true" or "false" as plain text
+     */
     @GET
     public Response isDummyDataCreated() {
         return Response.ok(db.isDummyDataCreated(), MediaType.TEXT_PLAIN).build();
     }
 
+    /**
+     * Generate dummy game
+     * @param start integer to start from for value generation
+     * @param creator creator to set for the game
+     * @return Dummy Game entity instance
+     */
     private Game genGame(int start, User creator){
         Game g = new Game();
         //g.setId(++start);

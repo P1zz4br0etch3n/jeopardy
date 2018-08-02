@@ -23,7 +23,7 @@ export class AuthService {
       })
     };
 
-    this.http.post('rest/login', '{"username":"' + username + '", "password":"' + password + '"}',
+    this.http.post('rest/auth/login', '{"username":"' + username + '", "password":"' + password + '"}',
       httpOptions).subscribe((data: Login) => {
         this.loggedIn = true;
         this.currentUser = new User(data.userId, username, data.authToken);
@@ -45,7 +45,7 @@ export class AuthService {
         'X-Auth-Token': this.currentUser.authToken,
       }
     };
-    this.http.head('rest/logout', httpOptions).subscribe({ error: e => console.error(e) });
+    this.http.head('rest/auth/logout', httpOptions).subscribe({ error: e => console.error(e) });
 
     // remove local session
     localStorage.removeItem(CURRENT_USER_KEY);
@@ -73,7 +73,7 @@ export class AuthService {
       })
     };
     // get the auth token from localStorage
-    this.http.post('rest/validateUser', JSON.stringify(this.currentUser),
+    this.http.post('rest/auth/validateUser', JSON.stringify(this.currentUser),
       httpOptions).subscribe((data: Validator) => {
         if (data.valid === false) {
           this.logout();

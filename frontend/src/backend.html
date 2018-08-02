@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Jeopardy Backend</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        button:disabled {
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+<h1 title=".. or Sparta?">This is Jeopardy Backend</h1>
+<p>
+    If you see this page, the server is running...
+</p>
+<p>
+    <button id="btnDummyData">Create Dummy Data</button>
+</p>
+<p>
+    <a href="/jeopardy">Go back to Frontend</a>
+</p>
+
+<script>
+    $(document).ready(() => {
+        $.ajax({
+            'method': 'GET',
+            'url': '/jeopardy/rest/dummydata',
+        }).done((data) => {
+            if (data === 'true') {
+                let btn = $('#btnDummyData');
+                btn.text('Dummy Data created');
+                btn.attr('disabled', 'disabled');
+            }
+        }).fail((jqXHR, textStatus, errorThrown) => {
+            console.error('GET /jeopardy/rest/dummydata ' + errorThrown)
+        })
+    });
+
+    $('#btnDummyData').click((eventObject) => {
+        $.ajax({
+            'method': 'POST',
+            'url': '/jeopardy/rest/dummydata',
+        }).done(() => {
+            $(eventObject.target).attr('disabled', 'disabled');
+            $(eventObject.target).text('Dummy Data created');
+        }).fail((jqXHR, textStatus, errorThrown) => {
+            if (jqXHR.status === 409) {
+                console.error('dummydata already created')
+            } else {
+                console.error(errorThrown);
+            }
+        })
+    })
+
+</script>
+</body>
+</html>

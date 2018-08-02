@@ -1,5 +1,8 @@
 package org.dhbw.mosbach.ai.javae.jeopardy.rest;
 
+/**
+ * class for validateUser Endpoint
+ */
 public class ValidationUser {
     private long id;
     private String username;

@@ -70,7 +70,7 @@
                             <filtering>false</filtering>
                             <directory>src/main/webapp</directory>
                             <includes>
-                                <include>**/web.xml</include>
+                                <include>../web/**/web.xml</include>
                             </includes>
                         </resource>
                     </webResources>

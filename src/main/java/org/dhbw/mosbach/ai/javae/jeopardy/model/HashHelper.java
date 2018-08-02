@@ -3,8 +3,11 @@ package org.dhbw.mosbach.ai.javae.jeopardy.model;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 
-public final class HashHelper {
-    public static String Hash(String s){
+/**
+ * Helper class for hashing passwords
+ */
+final class HashHelper {
+    static String Hash(String s){
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance("SHA-256");

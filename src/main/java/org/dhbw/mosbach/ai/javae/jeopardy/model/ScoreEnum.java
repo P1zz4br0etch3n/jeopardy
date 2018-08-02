@@ -1,5 +1,8 @@
 package org.dhbw.mosbach.ai.javae.jeopardy.model;
 
+/**
+ * Enum for managing question scores/points
+ */
 public enum ScoreEnum {
     EINHUNDERT(100),
     ZWEIHUNDERT(200),
