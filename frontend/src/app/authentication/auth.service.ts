@@ -29,6 +29,7 @@ export class AuthService {
         this.currentUser = new User(data.userId, username, data.authToken);
         localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(this.currentUser));
         this.router.navigate(['/choose']);
+        this.wrongCredentials = false;
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -38,7 +39,15 @@ export class AuthService {
   }
 
   logout() {
-    // remove localStorage session data
+    // logout from server
+    const httpOptions = {
+      headers: {
+        'X-Auth-Token': this.currentUser.authToken,
+      }
+    };
+    this.http.head('rest/logout', httpOptions).subscribe({ error: e => console.error(e) });
+
+    // remove local session
     localStorage.removeItem(CURRENT_USER_KEY);
     this.currentUser = null;
     this.loggedIn = false;

@@ -1,16 +1,15 @@
 
 import { Injectable } from '@angular/core';
 import { Quiz } from './quiz';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 import { Question } from './question';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {AuthService} from "./authentication/auth.service";
 
 
 
 @Injectable()
 export class QuizService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   quiz: Quiz;
   configUrl = 'rest/games';
@@ -37,7 +36,13 @@ export class QuizService {
   }
 
   getQuizFromServer() {
-   return this.http.get(this.configUrl);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'X-Auth-Token': this.authService.currentUser.authToken,
+      })
+    };
+
+    return this.http.get(this.configUrl, httpOptions);
   }
 
 

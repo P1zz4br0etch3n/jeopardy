@@ -47,7 +47,7 @@ public class AuthenticationBean {
      * @return Authenticated User on success or null on failure
      */
     public User authenticateUserByAuthToken(String authToken) {
-        if (TokenToUser.containsKey(authToken)) {
+        if (authToken != null && TokenToUser.containsKey(authToken)) {
             if (!hasTokenExpired(authToken)){
                 return TokenToUser.get(authToken);
             }
@@ -68,7 +68,7 @@ public class AuthenticationBean {
             if(timeDiff > expirationSeconds) {
                 return true;
             }
-            RefreshToken(authToken);
+            refreshToken(authToken);
             return false;
         }
         return true;
@@ -78,7 +78,7 @@ public class AuthenticationBean {
      * Refreshes Token. Use only for still valid tokens.
      * @param authToken Generated authToken from method generateUserAuthToken()
      */
-    private void RefreshToken(String authToken){
+    private void refreshToken(String authToken){
         if(TokenToDate.containsKey(authToken)){
             TokenToDate.get(authToken).setTime(System.currentTimeMillis());
         }
@@ -95,7 +95,7 @@ public class AuthenticationBean {
             if (user.getUsername().equals(username)){
                 byte authTokenBytes[] = new byte[32];
                 rnd.nextBytes(authTokenBytes);
-                SetAuthTokenOfUser(user, Arrays.toString(authTokenBytes));
+                setAuthTokenOfUser(user, Arrays.toString(authTokenBytes));
                 return Arrays.toString(authTokenBytes);
             }
         }
@@ -107,10 +107,10 @@ public class AuthenticationBean {
      * @param user User entity instance
      * @param authToken Generated authToken from method generateUserAuthToken()
      */
-    private void SetAuthTokenOfUser(User user, String authToken) {
+    private void setAuthTokenOfUser(User user, String authToken) {
         if (TokenToUser.containsKey(authToken) || TokenToUser.containsValue(user)) {
             System.out.println("User already registered.");
-            InvalidateAuthToken(authToken);
+            invalidateAuthToken(authToken);
             authToken = generateUserAuthToken(user.getUsername());
             System.out.println("New registration generated.");
         }
@@ -122,7 +122,7 @@ public class AuthenticationBean {
      * Remove Token from session map
      * @param authToken Generated authToken from method generateUserAuthToken()
      */
-    private void InvalidateAuthToken(String authToken) {
+    public void invalidateAuthToken(String authToken) {
         if (!TokenToUser.containsKey(authToken)) {
             System.out.println("Invalidating not existing token.");
         } else {

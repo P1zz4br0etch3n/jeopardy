@@ -127,7 +127,8 @@ export class CreateComponent implements OnInit {
   sendQuiz(quiz: Quiz) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Auth-Token': this.authService.currentUser.authToken,
       })
     };
 
