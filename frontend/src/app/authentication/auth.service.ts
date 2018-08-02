@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpHeaders, HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 
+const CURRENT_USER_KEY = 'currentUser';
 
 @Injectable()
 export class AuthService {
 
-  loggedin = false;
-  loginData: Login;
+  loggedIn = false;
   wrongCredentials = false;
-  name = 'test';
+  currentUser: User;
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -17,7 +17,6 @@ export class AuthService {
   authenticateUser(username: string, password: string) {
 
     // call API to authenticate user
-    this.name = username;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -26,10 +25,9 @@ export class AuthService {
 
     this.http.post('rest/login', '{"username":"' + username + '", "password":"' + password + '"}',
       httpOptions).subscribe((data: Login) => {
-        this.loggedin = true;
-        this.loginData = data;
-        localStorage.setItem("loginData", JSON.stringify(data));
-        localStorage.setItem('username', username);
+        this.loggedIn = true;
+        this.currentUser = new User(data.userId, username, data.authToken);
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(this.currentUser));
         this.router.navigate(['/choose']);
       },
       (err: HttpErrorResponse) => {
@@ -40,25 +38,21 @@ export class AuthService {
   }
 
   logout() {
-
-    // call API to logout user
-
     // remove localStorage session data
-    localStorage.removeItem('loginData');
-    localStorage.removeItem('username');
-    this.loggedin = false;
+    localStorage.removeItem(CURRENT_USER_KEY);
+    this.currentUser = null;
+    this.loggedIn = false;
     this.router.navigate(['/login']);
   }
 
 
   isAuthenticated(): Boolean {
-    if (!this.loginData) {
+    if (!this.currentUser) {
       // maybe page reload, try to fetch from localStorage
-      this.loginData = JSON.parse(localStorage.getItem("loginData"));
-      if (this.loginData) {
+      this.currentUser = JSON.parse(localStorage.getItem(CURRENT_USER_KEY));
+      if (this.currentUser) {
         // session restored
-        this.loggedin = true;
-        this.name = localStorage.getItem('username');
+        this.loggedIn = true;
       } else {
         // still no session
         return false;
@@ -70,7 +64,7 @@ export class AuthService {
       })
     };
     // get the auth token from localStorage
-    this.http.post('rest/validateToken', '{"authToken":"' + this.loginData.authToken + '"}',
+    this.http.post('rest/validateUser', JSON.stringify(this.currentUser),
       httpOptions).subscribe((data: Validator) => {
         if (data.valid === false) {
           this.logout();
@@ -80,7 +74,7 @@ export class AuthService {
         console.log(err);
         this.logout();
       });
-    return this.loggedin;
+    return this.loggedIn;
   }
 }
 
@@ -91,4 +85,17 @@ interface Login {
 
 interface Validator {
   valid: Boolean;
+}
+
+export class User {
+  id: number;
+  username: string;
+  authToken: string;
+
+  constructor(id, name, authToken) {
+    this.id = id;
+    this.username = name;
+    this.authToken = authToken;
+  }
+
 }

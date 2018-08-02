@@ -36,11 +36,15 @@ public class RestAuthentication {
     }
 
     @POST
-    @Path("/validateToken")
+    @Path("/validateUser")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response validateToken(AuthTokenWrapper wrapper) {
+    public Response validateToken(ValidationUser user) {
+        User authenticatedUser = ab.authenticateUserByAuthToken(user.getAuthToken());
         String responseObject = "{" +
-                "\"valid\": " + (ab.authenticateUserByAuthToken(wrapper.getAuthToken()) != null) +
+                "\"valid\": " + (
+                        authenticatedUser != null &&
+                                authenticatedUser.getId() == user.getId() &&
+                                authenticatedUser.getUsername().equals(user.getUsername())) +
                 "}";
         return Response.ok(responseObject, MediaType.APPLICATION_JSON).build();
     }

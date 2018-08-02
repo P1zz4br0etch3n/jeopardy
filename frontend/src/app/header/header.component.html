@@ -4,18 +4,18 @@
       <span>
         <button mat-button routerLink="/choose"><h4>Quizmaster</h4></button>
       </span>
-      <span *ngIf="this.authService.loggedin">
+      <span *ngIf="this.authService.loggedIn">
         <button mat-button routerLink="/create">Quiz erstellen</button>
       </span>
     </div>
     <div>
-    <span *ngIf="this.authService.loggedin" class="right">
+    <span *ngIf="this.authService.loggedIn" class="right">
       <div id="flex">
         <mat-icon svgIcon="usercircle"></mat-icon>
-        <button id="user" mat-button>{{this.authService.name}}</button>  
+        <button id="user" mat-button>{{this.authService.currentUser.username}}</button>
       </div>
       </span>
-      <span *ngIf="this.authService.loggedin">
+      <span *ngIf="this.authService.loggedIn">
         <button mat-button (click)="logout()">Logout</button>
       </span>
     </div>

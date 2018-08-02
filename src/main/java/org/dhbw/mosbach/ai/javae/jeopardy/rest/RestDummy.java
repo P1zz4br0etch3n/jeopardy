@@ -57,7 +57,7 @@ public class RestDummy {
         Game g = new Game();
         //g.setId(++start);
         g.setName("Game"+(++start));
-        g.setCreatorUser(creator);
+        g.setCreator(creator);
 
         ArrayList<Category> categories = new ArrayList<>();
         for(int a = 0; a < 5; a++){

@@ -1,6 +1,6 @@
 package org.dhbw.mosbach.ai.javae.jeopardy.model;
 
-import org.dhbw.mosbach.ai.javae.jeopardy.exception.ScoreNotValidException;
+import org.dhbw.mosbach.ai.javae.jeopardy.exception.PointsNotValidException;
 
 import javax.persistence.*;
 
@@ -43,7 +43,7 @@ public class Question {
         return points.getValue();
     }
 
-    public void setPoints(int score) throws ScoreNotValidException {
+    public void setPoints(int score) throws PointsNotValidException {
         if (score == 100) {
             this.points = ScoreEnum.EINHUNDERT;
         } else if (score == 200) {
@@ -55,7 +55,7 @@ public class Question {
         } else if (score == 500) {
             this.points = ScoreEnum.FUENFHUNDERT;
         } else {
-            throw new ScoreNotValidException();
+            throw new PointsNotValidException();
         }
     }
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Quiz } from '../quiz';
 import { Question } from '../question';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from "../authentication/auth.service";
 
 @Component({
   selector: 'app-create',
@@ -16,7 +16,9 @@ export class CreateComponent implements OnInit {
     id: 0,
     name: '',
     categories: [null, null, null, null, null],
-    creator: 0
+    creator: {
+      id: this.authService.currentUser.id,
+    },
   };
 
   @Input() quizname = 'Hier steht der Name des Quiz';
@@ -32,7 +34,7 @@ export class CreateComponent implements OnInit {
   @Input() question4 = '';
   @Input() question5 = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public authService: AuthService) { }
 
   logger() {
     console.log('test');
@@ -93,7 +95,6 @@ export class CreateComponent implements OnInit {
     this.createdQuiz.categories[this.categoryCount].questions = [];
     this.createdQuiz.categories[this.categoryCount].questions = this.createdQuiz.categories[this.categoryCount].questions.concat(questions);
     console.log(this.createdQuiz.categories[this.categoryCount].questions);
-    questions = [];
     this.clear();
     this.categoryCount++;
   }

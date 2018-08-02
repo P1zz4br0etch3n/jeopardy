@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Bean for Authentication tasks
+ */
 @Named
 @ApplicationScoped
 public class AuthenticationBean {
@@ -19,14 +22,15 @@ public class AuthenticationBean {
     @Inject
     private PersistenceBean pb;
 
-
-    /*
-        Authentication
-     */
     private SecureRandom rnd = new SecureRandom();
     private ConcurrentHashMap<String, User> TokenToUser = new ConcurrentHashMap<>();
     private ConcurrentHashMap<String, Date> TokenToDate = new ConcurrentHashMap<>();
 
+    /**
+     * Check if a pair of username and password is correct.
+     * @param user Any instance of an user entity which contains a username and password
+     * @return Managed user entity on success and null on failure
+     */
     public User authenticateUserByUsernameAndPassword(User user) {
         try {
             User u = pb.getUserByUsername(user.getUsername());
@@ -37,6 +41,11 @@ public class AuthenticationBean {
         return null;
     }
 
+    /**
+     * Check if token is valid.
+     * @param authToken Generated authToken from method generateUserAuthToken()
+     * @return Authenticated User on success or null on failure
+     */
     public User authenticateUserByAuthToken(String authToken) {
         if (TokenToUser.containsKey(authToken)) {
             if (!hasTokenExpired(authToken)){
@@ -46,7 +55,12 @@ public class AuthenticationBean {
         return null;
     }
 
-    //WARNING: Automatically refreshes the Token if it is not expired.
+    /**
+     * Check if Token has expired.
+     * Note: Automatically refreshes the Token if it is not expired.
+     * @param authToken Generated authToken from method generateUserAuthToken()
+     * @return true or false
+     */
     private Boolean hasTokenExpired(String authToken) {
         int expirationSeconds = 300;
         if (TokenToDate.containsKey(authToken)){
@@ -60,12 +74,21 @@ public class AuthenticationBean {
         return true;
     }
 
+    /**
+     * Refreshes Token. Use only for still valid tokens.
+     * @param authToken Generated authToken from method generateUserAuthToken()
+     */
     private void RefreshToken(String authToken){
         if(TokenToDate.containsKey(authToken)){
             TokenToDate.get(authToken).setTime(System.currentTimeMillis());
         }
     }
 
+    /**
+     * Generates Token for an User
+     * @param username Username of any User
+     * @return Generated authToken
+     */
     public String generateUserAuthToken(String username) {
         List<User> allUsers = pb.getAllUsers();
         for (User user : allUsers) {
@@ -79,6 +102,11 @@ public class AuthenticationBean {
         return "";
     }
 
+    /**
+     * Puts generated Token for a specific User to a session map
+     * @param user User entity instance
+     * @param authToken Generated authToken from method generateUserAuthToken()
+     */
     private void SetAuthTokenOfUser(User user, String authToken) {
         if (TokenToUser.containsKey(authToken) || TokenToUser.containsValue(user)) {
             System.out.println("User already registered.");
@@ -90,6 +118,10 @@ public class AuthenticationBean {
         TokenToDate.put(authToken, new Date());
     }
 
+    /**
+     * Remove Token from session map
+     * @param authToken Generated authToken from method generateUserAuthToken()
+     */
     private void InvalidateAuthToken(String authToken) {
         if (!TokenToUser.containsKey(authToken)) {
             System.out.println("Invalidating not existing token.");
