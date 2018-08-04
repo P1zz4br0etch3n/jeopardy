@@ -5,7 +5,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
+      <x>410</x>
       <y>140</y>
       <w>100</w>
       <h>30</h>
@@ -16,7 +16,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>750</x>
+      <x>590</x>
       <y>140</y>
       <w>100</w>
       <h>30</h>
@@ -27,7 +27,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
+      <x>410</x>
       <y>250</y>
       <w>100</w>
       <h>30</h>
@@ -38,7 +38,7 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>610</x>
+      <x>450</x>
       <y>160</y>
       <w>30</w>
       <h>110</h>
@@ -51,7 +51,7 @@ m2=n</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>930</x>
+      <x>770</x>
       <y>140</y>
       <w>100</w>
       <h>30</h>
@@ -62,7 +62,7 @@ m2=n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>660</x>
+      <x>500</x>
       <y>140</y>
       <w>110</w>
       <h>40</h>
@@ -75,7 +75,7 @@ m2=5</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>840</x>
+      <x>680</x>
       <y>140</y>
       <w>110</w>
       <h>40</h>
@@ -88,9 +88,9 @@ m2=5</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>400</x>
+      <x>230</x>
       <y>190</y>
-      <w>120</w>
+      <w>130</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>PersistenceBean</panel_attributes>
@@ -99,7 +99,7 @@ m2=5</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>510</x>
+      <x>350</x>
       <y>140</y>
       <w>80</w>
       <h>80</h>
@@ -110,18 +110,18 @@ m2=5</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>510</x>
-      <y>200</y>
+      <x>350</x>
+      <y>190</y>
       <w>80</w>
-      <h>80</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>60.0;60.0;10.0;10.0</additional_attributes>
+    <additional_attributes>60.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>930</x>
+      <x>770</x>
       <y>250</y>
       <w>100</w>
       <h>30</h>
@@ -132,7 +132,7 @@ m2=5</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>970</x>
+      <x>810</x>
       <y>160</y>
       <w>30</w>
       <h>110</h>
@@ -145,7 +145,7 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
+      <x>410</x>
       <y>360</y>
       <w>100</w>
       <h>40</h>
@@ -157,7 +157,7 @@ HashHelper</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>610</x>
+      <x>450</x>
       <y>270</y>
       <w>30</w>
       <h>110</h>
@@ -168,7 +168,7 @@ HashHelper</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1020</x>
+      <x>860</x>
       <y>140</y>
       <w>70</w>
       <h>30</h>
@@ -179,18 +179,18 @@ HashHelper</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1070</x>
+      <x>910</x>
       <y>140</y>
       <w>170</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>ScoreNotValidException</panel_attributes>
+    <panel_attributes>PointsNotValidException</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLObject</id>
     <coordinates>
-      <x>550</x>
+      <x>390</x>
       <y>110</y>
       <w>500</w>
       <h>310</h>
@@ -202,7 +202,7 @@ valign=top</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>930</x>
+      <x>770</x>
       <y>360</y>
       <w>100</w>
       <h>40</h>
@@ -214,7 +214,7 @@ URL</panel_attributes>
   <element>
     <id>UMLObject</id>
     <coordinates>
-      <x>550</x>
+      <x>390</x>
       <y>440</y>
       <w>500</w>
       <h>130</h>
@@ -226,7 +226,7 @@ valign=top</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
+      <x>410</x>
       <y>470</y>
       <w>110</w>
       <h>30</h>
@@ -237,7 +237,7 @@ valign=top</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>690</x>
+      <x>530</x>
       <y>470</y>
       <w>140</w>
       <h>30</h>
@@ -248,7 +248,7 @@ valign=top</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>940</x>
+      <x>780</x>
       <y>470</y>
       <w>90</w>
       <h>30</h>
@@ -259,7 +259,7 @@ valign=top</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>840</x>
+      <x>680</x>
       <y>470</y>
       <w>90</w>
       <h>30</h>
@@ -270,7 +270,7 @@ valign=top</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>730</x>
+      <x>500</x>
       <y>520</y>
       <w>140</w>
       <h>30</h>
@@ -281,7 +281,7 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>440</x>
+      <x>280</x>
       <y>360</y>
       <w>130</w>
       <h>170</h>
@@ -293,7 +293,7 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>450</x>
+      <x>290</x>
       <y>210</y>
       <w>80</w>
       <h>170</h>
@@ -305,7 +305,7 @@ m2=@Inject</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>660</x>
+      <x>500</x>
       <y>590</y>
       <w>310</w>
       <h>190</h>
@@ -317,7 +317,7 @@ Frontend</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>680</x>
+      <x>520</x>
       <y>630</y>
       <w>110</w>
       <h>30</h>
@@ -328,7 +328,7 @@ Frontend</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>680</x>
+      <x>520</x>
       <y>680</y>
       <w>110</w>
       <h>30</h>
@@ -339,7 +339,7 @@ Frontend</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>810</x>
+      <x>650</x>
       <y>680</y>
       <w>140</w>
       <h>30</h>
@@ -350,7 +350,7 @@ Frontend</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>680</x>
+      <x>520</x>
       <y>730</y>
       <w>110</w>
       <h>30</h>
@@ -361,7 +361,7 @@ Frontend</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>810</x>
+      <x>650</x>
       <y>730</y>
       <w>140</w>
       <h>30</h>
@@ -372,7 +372,7 @@ Frontend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>660</x>
+      <x>500</x>
       <y>250</y>
       <w>250</w>
       <h>240</h>
@@ -383,12 +383,82 @@ Frontend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>660</x>
+      <x>500</x>
       <y>150</y>
       <w>340</w>
       <h>340</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;320.0;320.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>100</x>
+      <y>280</y>
+      <w>130</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>AuthenticationBean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>520</y>
+      <w>140</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>ValidationUser</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>140</x>
+      <y>360</y>
+      <w>180</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=)-
+</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;150.0;160.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>150</x>
+      <y>300</y>
+      <w>80</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-()
+m2=@Inject</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>150</x>
+      <y>190</y>
+      <w>100</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-()
+m2=@Inject</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>140</x>
+      <y>240</y>
+      <w>50</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=)-
+</panel_attributes>
+    <additional_attributes>20.0;20.0;20.0;40.0</additional_attributes>
   </element>
 </diagram>
