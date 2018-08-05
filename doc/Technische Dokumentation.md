@@ -54,6 +54,8 @@ wird. Für die Persistenz wurde wie gesagt der `ExampleDS` Datasrote von Wildfly
 ![uml diagram](jeopardyUML.png "UML Diagram")
 
 
+TODO: UML Text einfügen
+
 
 ### Beans
 In der Anwendung gibt es drei Beans. Eiens für die Authentifizierung, eines für die Dummy
@@ -85,4 +87,34 @@ Unauthorized in den Antwort-Header geschrieben. Wird ein einzelnes Objekt mit ei
 ungültigen ID angefragt, so kommt in den Antwort-Header der Status 404 Not Found.
 Das Token wird bei jeder Anfrage im Header unter der Bezeichnung `X-Auth-Token`
 erwartet. Wird dieser Header nicht mitgeschickt, erhält der Anfragende ebenfalls
-den Status 401.  
+den Status 401.
+
+### Authentifizierung
+Die Authentifizierung des Nutzers der Anwendung beginnt durch die Übertragung des
+Passworts durch das Frontend an das Backend. In letzterem werden die Login Daten
+überprüft, zuerst durch die Methode „authenticateUserByUsernameAndPassword“. Falls
+die Nutzerdaten korrekt waren, wird dem Frontend ein frisch generiertes Authentication
+Token übergeben. Das Token sind hierbei 32 zufällige Bytes.
+
+Zur sicheren Speicherung der Login Daten wird die HashHelper Klasse benötigt, die aus
+dem Password einen „SHA-256“-Hash generiert.
+
+Bei weiteren Authentifizierungen wird ab jetzt das Authentication Token zurate gezogen.
+Der Nutzer kann mittels der Methode „authenticateUserByAuthToken“ ermittelt werden, da
+das Token als Key in einer ConcurrentHashMap hinterlegt wurde, deren Value der
+entsprechende User ist. Ebenfalls in der Hashmap sind die Zeiten hinterlegt, die benötigt
+werden das Token nach fixer Zeit auslaufen zu lassen. So wird auch bei jeder Anfrage an
+das Backend ab hier geprüft ob das Token abgelaufen ist, falls nicht wird es automatisch
+zurückgesetzt, bzw. sinngemäß der Countdown resettet. Die Ablaufzeit ist aktuell auf 300
+Sekunden gesetzt.
+
+Zum Ausloggen wird entsprechend ein Mechanismus zur Invalidierung gebraucht, der mit
+Methode „invalidateAuthToken“ gegeben ist, die dann nur die Einträge aus den beiden
+HashMaps nehmen muss.
+
+### Testdaten
+Um leicht Testdaten generieren zu können, wurde ein separater Rest-Endpoint zum
+Generieren dieser geschaffen. Da die Testdaten nur zum Demonstrieren der Funktionalität
+und beim Testen, auch des Frontends, gebraucht wurden, mussten diese keine sinnvollen
+Fragen enthalten. Jedoch sollten z.B. Fragen und Kategorien einzigartig benannt sein,
+weshalb diese auf einen Counter setzen um diese zu benennen.
