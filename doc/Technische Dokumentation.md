@@ -22,7 +22,7 @@ die RESTful API vom Backend. Für die verschiedenen Ansichten wurden jeweils eig
 Komponenten erstellt, die nach Bedarf um Services ergänzt wurden. Zusätzlich dazu wurde
 ein Authentifizierungs-Service für das Login und Session Handling sowie ein Auth Guard
 implementiert, der bei jeder Anfrage die Gültigkeit der Anmeldung überprüft. Diese 
-Überprüfung findet sowohl local im Frontend (Session Attribut `isLoggedIn`) wie auch 
+Überprüfung findet sowohl lokal im Frontend (Session Attribut `isLoggedIn`) wie auch 
 parallel dazu im Backend durch einen weiteren REST Endpunkt statt. Um das Frontend
 auszuliefern wurde es zunächst in statisches Javascript kompiliert und dann in das
 in der Maven Konfiguration definierte `webResources` Verzeichnis kopiert. Das führt dazu,
@@ -60,4 +60,29 @@ In der Anwendung gibt es drei Beans. Eiens für die Authentifizierung, eines fü
 Daten und eines für Persistenz Aufgaben. Das `AuthenticationBean` erledigt Aufgaben wie den
 Login, Logout, Erzeugung von Tokens und Gültigkeitsprüfung von Tokens. Das heißt, es wird
 überall dort verwendet, wo überprüft werden muss, ob die Anfrage von einem authentifizierten
-Benutzer stammt. Das `DummyBean` 
+Benutzer stammt. Das `DummyBean` hat lediglich den Zweck den State zu halten ob die Dummy
+Daten bereits angelegt wurden oder nicht. Im `PersistenceBean` finden sämtliche Interaktionen
+mit der Datenbank statt.
+
+### Models
+Da das Datenmodell dieser Anwendung sehr einfach gehalten wurde, sind die Models für die
+Auslieferung der Daten auch gleichzeitig die Entities für Persistenzschicht. Die ids der
+Entities sind alle 'generatedValues', so dass man sich darüber keine Gedanken machen muss.
+Der einzige selbst definierte Constraint im Datenmodell ist das `unique` Constraint auf dem
+User Namen. Für die Kaskadierung von Game, Category und Question wurde der Typ ALL gewählt,
+wodurch z.B. bei einer Löschung eines Games auch die zugeordneten Categories und Questions 
+entfernt werden, da diese nicht alleine existieren sollen.
+
+### Rest
+Durch die Anwesenheit der Klasse `RestApplication` wird das Servlet für die RESTful API
+erzeugt. Die weiteren Klassen unterteilen die REST Endpoints in mehrere Bereiche:
+Authentifizierung, Dummy Daten, User und Games. Die Klasse `ValidationUser` dient als
+Datenstruktur für die Validierung von einem Token mit zugehöriger User Id und Username.
+Aus den geschützten Endpoints wird jeweils die Methode `authenticateUserByAuthToken()`
+aus dem `AuthenticationBean` aufgerufen. Ist das Token gültig, werden die entsprechenden
+Daten aus der Datenbank geholt und zurück gegeben. Andernfalls wird der HTTP Status 401
+Unauthorized in den Antwort-Header geschrieben. Wird ein einzelnes Objekt mit einer 
+ungültigen ID angefragt, so kommt in den Antwort-Header der Status 404 Not Found.
+Das Token wird bei jeder Anfrage im Header unter der Bezeichnung `X-Auth-Token`
+erwartet. Wird dieser Header nicht mitgeschickt, erhält der Anfragende ebenfalls
+den Status 401.  
