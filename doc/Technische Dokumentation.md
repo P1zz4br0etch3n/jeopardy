@@ -1,6 +1,17 @@
 # Technische Dokumentation
 
 ## Projektidee
+Das dem Projekt zugrundeliegende Idee ist einen einfachen Weg zu bieten
+Jeopardy Quizze zu erstellen und diese später zu spielen. Jeopardy ist ein
+aus Amerika stammendes Quiz, bei dem aus fünf Kategorien "Fragen" verschiender
+Schwierigkeitsstufen gewählt werden, die dann "beantwortet" werden um Punkte
+zu erhalten.
+Die Quotation deshalb, da bei Jeopardy Antworten gezeigt werden, die mit einer
+Frage "beantwortet" werden sollen. Schwierigere Fragen/Antworten geben
+verständlicherweise mehr Punkte.
+Das Ziel des Projektes ist auf möglichst einfache Weise ganze Quizze, die Kategorien
+und die Fragen anzulegen, die von einem Quizmaster dann präsentiert und durchgeführt
+werden können.
 
 ## Verständlichkeit
 ### Backend
@@ -52,10 +63,21 @@ wird. Für die Persistenz wurde wie gesagt der `ExampleDS` Datasrote von Wildfly
 ## Design
 
 ![uml diagram](jeopardyUML.png "UML Diagram")
+Das Diagramm zeigt die verscheidenen Unterteilungsebenen der Anwendung, auf technischer
+Seite liegt dabei der Fokus auf den "model"- und "rest"-Ordnern.
+Das Model enthält neben den Classes die das Spiel ausmachen auch solche, die
+zur interaktion mit selbigem gebraucht werden, wie der HashHelper zur einheitlichen
+generierung von Hashes der Passwörter.
+Auch ersichtlich werden die Assoziationen und deren Kardinalitäten, dass z.B. jedes Spiel
+aus fünf Kategorien und diese jeweils wiederum aus fünf Fragen bestehen.
 
+Die Beans am linken Rand, stellen die Persistenzmöglichkeit für die model Klassen
+dar, die dann wiederum via Injects an die Schnittstellen zum Frontend weitergereicht werden.
+Für die Authentifizierung wurde eine separate Bean, die Authentication Bean geschaffen.
 
-TODO: UML Text einfügen
-
+Genannte Schnittstellen zum Frontend sind als REST-Endpoints modelliert, diese sind
+gesondert in dem Ordner rest konzentriert. Gleichzeitig sind sie im Diagramm visuell bewusst auch
+zwischen den Spiel- und Logiklassen und dem Frontend positioniert.
 
 ### Beans
 In der Anwendung gibt es drei Beans. Eiens für die Authentifizierung, eines für die Dummy
