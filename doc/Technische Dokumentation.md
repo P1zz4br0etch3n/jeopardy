@@ -48,6 +48,11 @@ bei der serverseitigen Überprüfung der Authentizität ebenfalls geprüft. Dies
 keinen Nutzen für die Anwendung, aber sollten später mal Rechte mit der User Id verbunden
 sein, sind die Sicherheits-Vorkehrungen dafür bereits getroffen. 
 
+### Geschützte Bereiche und Endpoints
+Im Frontend ist quasi alles ein geschützter Bereich außer natürlich die Login und die
+Registrier-Ansicht. Ist man ein eingeloggt, kann man alles sehen, jedes Quiz spielen 
+und selbst neue Quizzes anlegen.
+
 ### Maven
 Die Maven Konfiguration umfasst im Wesentlichen nur die Beschaffung der Abhängigkeiten
 und die Regeln für den Build. Die `web.xml` musste außerhalb des `webapp` Verzeichnisses
@@ -80,7 +85,7 @@ gesondert in dem Ordner rest konzentriert. Gleichzeitig sind sie im Diagramm vis
 zwischen den Spiel- und Logiklassen und dem Frontend positioniert.
 
 ### Beans
-In der Anwendung gibt es drei Beans. Eiens für die Authentifizierung, eines für die Dummy
+In der Anwendung gibt es drei Beans. Eines für die Authentifizierung, eines für die Dummy
 Daten und eines für Persistenz Aufgaben. Das `AuthenticationBean` erledigt Aufgaben wie den
 Login, Logout, Erzeugung von Tokens und Gültigkeitsprüfung von Tokens. Das heißt, es wird
 überall dort verwendet, wo überprüft werden muss, ob die Anfrage von einem authentifizierten
@@ -93,16 +98,16 @@ Da das Datenmodell dieser Anwendung sehr einfach gehalten wurde, sind die Models
 Auslieferung der Daten auch gleichzeitig die Entities für Persistenzschicht. Die ids der
 Entities sind alle 'generatedValues', so dass man sich darüber keine Gedanken machen muss.
 Der einzige selbst definierte Constraint im Datenmodell ist das `unique` Constraint auf dem
-User Namen. Für die Kaskadierung von Game, Category und Question wurde der Typ ALL gewählt,
-wodurch z.B. bei einer Löschung eines Games auch die zugeordneten Categories und Questions 
-entfernt werden, da diese nicht alleine existieren sollen.
+User Namen. Für die Kaskadierung von Game (Quiz), Category und Question wurde der Typ ALL
+gewählt, wodurch z.B. bei einer Löschung eines Games auch die zugeordneten Categories und 
+Questions entfernt werden, da diese nicht alleine existieren sollen.
 
 ### Rest
 Durch die Anwesenheit der Klasse `RestApplication` wird das Servlet für die RESTful API
 erzeugt. Die weiteren Klassen unterteilen die REST Endpoints in mehrere Bereiche:
-Authentifizierung, Dummy Daten, User und Games. Die Klasse `ValidationUser` dient als
-Datenstruktur für die Validierung von einem Token mit zugehöriger User Id und Username.
-Aus den geschützten Endpoints wird jeweils die Methode `authenticateUserByAuthToken()`
+Authentifizierung, Dummy Daten, User und Games (Quizzes). Die Klasse `ValidationUser`
+dient als Datenstruktur für die Validierung von einem Token mit zugehöriger User Id und
+Username. Aus den geschützten Endpoints wird jeweils die Methode `authenticateUserByAuthToken()`
 aus dem `AuthenticationBean` aufgerufen. Ist das Token gültig, werden die entsprechenden
 Daten aus der Datenbank geholt und zurück gegeben. Andernfalls wird der HTTP Status 401
 Unauthorized in den Antwort-Header geschrieben. Wird ein einzelnes Objekt mit einer 
