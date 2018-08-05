@@ -1,7 +1,7 @@
 # Technische Dokumentation
 
 ## Projektidee
-Das dem Projekt zugrundeliegende Idee ist einen einfachen Weg zu bieten
+Die dem Projekt zugrundeliegende Idee ist einen einfachen Weg zu bieten
 Jeopardy Quizze zu erstellen und diese später zu spielen. Jeopardy ist ein
 aus Amerika stammendes Quiz, bei dem aus fünf Kategorien "Fragen" verschiender
 Schwierigkeitsstufen gewählt werden, die dann "beantwortet" werden um Punkte
